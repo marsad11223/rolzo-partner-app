@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 34" width="30" height="34">
+    <defs>
+        <clipPath id="circles">
+            <rect width="36" height="34" x="0" y="0"></rect>
+        </clipPath>
+    </defs>
+    <g clip-path="url(#circles)">
+        <circle class="staticСircle" cx="4px" cy="50%" opacity="0" r="3px" fill="rgb(0,0,0)">
+            <animate attributeType="CSS" attributeName="opacity" begin="0s" dur="0.8s" repeatCount="indefinite" from="1" to="0" />
+        </circle>
+        <circle class="staticСircle" cx="15px" cy="50%" opacity="0" r="3px" fill="rgb(0,0,0)">
+            <animate attributeType="CSS" attributeName="opacity" begin="0.2s" dur="0.8s" repeatCount="indefinite" from="0.6" to="0" />
+        </circle>
+        <circle class="staticСircle" cx="26px" cy="50%" opacity="0" r="3px" fill="rgb(0,0,0)">
+            <animate attributeType="CSS" attributeName="opacity" begin="0.4s" dur="0.8s" repeatCount="indefinite" from="0.4" to="0" />
+        </circle>
+    </g>
+</svg>
