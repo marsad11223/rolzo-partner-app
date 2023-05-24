@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from '../screens';
+import { BookingScreen, HomeScreen } from '../screens';
 import { icons } from '../assets/images';
 
 const Tab = createBottomTabNavigator();
@@ -38,7 +38,7 @@ const MainStack = () => {
       }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Bookings" component={HomeScreen} />
+      <Tab.Screen name="Bookings" component={BookingScreen} />
       <Tab.Screen name="Accounts" component={HomeScreen} />
     </Tab.Navigator>
   );
