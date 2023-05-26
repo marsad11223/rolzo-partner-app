@@ -7,7 +7,7 @@ const Button = ({ onPress, label, children, ...rest }) => {
   return (
     <StyledButton
       activeOpacity={0.8}
-      style={rest.disabled && styles.disabled}
+      style={[styles.button, rest.disabled && styles.disabled]}
       onPress={onPress}
       {...rest}>
       {children ? children : <Text style={styles.label}>{label}</Text>}
@@ -20,7 +20,7 @@ export default Button;
 const styles = StyleSheet.create({
   label: {
     color: 'white',
-    height: 20,
+    height: 25,
     justifyContent: 'center',
     fontSize: 16,
     fontWeight: "500",
@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     // backgroundColor: Colors.disabled,
     backgroundColor: Colors.primary,
   },
+  button: {
+    width: '100%', // Set the width to 100%
+  },
 });
 
 const StyledButton = styled(TouchableOpacity)`
@@ -38,4 +41,5 @@ const StyledButton = styled(TouchableOpacity)`
   justify-content: center;
   padding: 16px;
   height: 50px;
+  border-radius: 2px;
 `;

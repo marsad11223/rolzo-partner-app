@@ -117,8 +117,8 @@ const Login = ({ navigation }) => {
                               ? 13
                               : phone.current.getISOCode().toUpperCase() ===
                                 'BG'
-                              ? 13
-                              : getExampleNumber(
+                                ? 13
+                                : getExampleNumber(
                                   phone.current.getISOCode().toUpperCase(),
                                   examples
                                 )?.number.length

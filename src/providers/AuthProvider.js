@@ -27,7 +27,9 @@ export function AuthProvider(props) {
     setLoading(true);
     try {
       const response = await Auth.verifyOTP(phone, sid, code);
-      if (response.status === 'approved') {
+
+      console.log('responseresponse', response);
+      if (response?.data?.status === 'approved') {
         const token = await messaging().getToken();
         const response = await Auth.requestAuthToken(phone, code, token);
         if (response?.partnerToken) {

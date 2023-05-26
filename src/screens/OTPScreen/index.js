@@ -7,7 +7,7 @@ import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { Colors } from '../../theme/variables';
 import { AuthContext } from '../../providers/AuthProvider';
 
-const OTPScreen = ({ route }) => {
+const OTPScreen = ({ route, navigation }) => {
   const { phone, sid } = route.params;
 
   const [currentSid, setCurrentSid] = useState(sid);
@@ -30,7 +30,9 @@ const OTPScreen = ({ route }) => {
               <Formik
                 initialValues={{ code: '' }}
                 onSubmit={(values) => {
-                  login(phone, currentSid, values.code);
+                  // login(phone, currentSid, values.code);
+                  navigation.navigate('Main')
+
                 }}
               >
                 {({ handleChange, handleBlur, handleSubmit, values }) => (

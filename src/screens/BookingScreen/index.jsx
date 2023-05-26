@@ -8,27 +8,26 @@ import {
 } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import NewOffers from './NewOffers';
+import Planned from './Planned';
+import Completed from './Completed';
+
+
 
 const BookingScreen = () => {
+  
   const layout = useWindowDimensions();
-
   const [index, setIndex] = useState(0);
+
   const [routes] = useState([
     { key: 'first', title: 'New offers (0)' },
     { key: 'second', title: 'Planned (0)' },
     { key: 'third', title: 'Completed (0)' },
   ]);
 
-  const FirstRoute = () => <View style={{ flex: 1 }} />;
-
-  const SecondRoute = () => <View style={{ flex: 1 }} />;
-
-  const ThirdRoute = () => <View style={{ flex: 1 }} />;
-
   const renderScene = SceneMap({
     first: NewOffers,
-    second: SecondRoute,
-    third: ThirdRoute,
+    second: Planned,
+    third: Completed,
   });
 
   const renderTabBar = (props) => (
