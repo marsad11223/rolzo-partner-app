@@ -18,6 +18,7 @@ import { getExampleNumber } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/examples.mobile.json';
 import styled from 'styled-components/native';
 import axios from 'axios';
+
 import DeviceCountry, {
   TYPE_ANY,
   TYPE_TELEPHONY,

@@ -3,6 +3,9 @@ import Auth from '../services/Auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
+import { firebase } from '../../firebaseConfig';
+import * as Device from 'expo-device';
+import { getExpoPushTokenAsync } from 'expo-notifications';
 
 export const AuthContext = createContext();
 
@@ -27,21 +30,23 @@ export function AuthProvider(props) {
     setLoading(true);
     try {
       const response = await Auth.verifyOTP(phone, sid, code);
-
-      console.log('responseresponse', response);
-      if (response?.data?.status === 'approved') {
-        const token = await messaging().getToken();
+      if (response?.data?.status === 'approved' && Device.isDevice) {
+        const { data: token } = await getExpoPushTokenAsync();
         const response = await Auth.requestAuthToken(phone, code, token);
-        if (response?.partnerToken) {
-          await AsyncStorage.setItem('authToken', response.partnerToken);
-          setToken(response.partnerToken);
+        if (response?.data?.partnerToken) {
+          await AsyncStorage.setItem('authToken', response?.data?.partnerToken);
+          setToken(response?.data?.partnerToken);
           setIsSessionValid(true);
-        } else throw Error('Authentication failed');
-      } else throw Error('The OTP you have entered is invalid.');
+        } else {
+          throw Error('Authentication failed');
+        }
+      } else {
+        throw Error('The OTP you have entered is invalid.');
+      }
       setLoading(false);
-      console.log('responseresponse', response);
-      return response.sid;
+      return response.data.sid;
     } catch (error) {
+      console.log('last catch ', error);
       setLoading(false);
       alert(error.message);
     }

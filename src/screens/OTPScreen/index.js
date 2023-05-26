@@ -30,8 +30,8 @@ const OTPScreen = ({ route, navigation }) => {
               <Formik
                 initialValues={{ code: '' }}
                 onSubmit={(values) => {
-                  // login(phone, currentSid, values.code);
-                  navigation.navigate('Main')
+                  login(phone, currentSid, values.code);
+                  // navigation.navigate('Main')
 
                 }}
               >
