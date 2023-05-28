@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,9 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
+
+import axios from 'axios';
+import AppLoading from '../../components/Loading/AppLoading';
 import Card from './Card';
 
 import BookingGold from '../../assets/images/icons/icon-bookings-gold.png';
@@ -15,69 +18,92 @@ import VehicleGold from '../../assets/images/icons/icon-vehicle-gold.png';
 
 const HomeScreen = () => {
   const [service, setService] = useState(0);
-  return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Hello, Abdullah</Text>
-      <View style={{ marginHorizontal: 30 }}>
-        <View style={styles.toggleContainer}>
-          <TouchableOpacity
-            style={service === 0 ? styles.activeToggle : styles.inactiveToggle}
-            onPress={() => {
-              setService(0);
-            }}
-          >
-            <Text style={styles.toggleText}>Chauffer service</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={service === 1 ? styles.activeToggle : styles.inactiveToggle}
-            onPress={() => {
-              setService(1);
-            }}
-          >
-            <Text style={styles.toggleText}>Car Rental</Text>
-          </TouchableOpacity>
-        </View>
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-        <Card
-          title={'Today'}
-          Icon={BookingGold}
-          amount={0}
-          amountSubtitle={'Bookings'}
-        />
-        <Card
-          title={'New offers'}
-          Icon={BookingGold}
-          amount={0}
-          amountSubtitle={'New offers'}
-        />
-        <Card
-          title={'Earnings'}
-          Icon={Earning}
-          amount={'240.0 USD'}
-          amountSubtitle={'New offers'}
-          transactions={
-            service === 0
-              ? [
-                  { title: 'Transfer(1)', amount: '39.00' },
-                  { title: 'By the hour(1)', amount: '201.00' },
+  useEffect(() => {
+    fetchData()
+    return () => {
+    }
+  }, [])
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('https://staging.rolzo.com/api/api/v1/external/partnerToken/bba801238acb/home-page?page=1&limit=10');
+      setUserData(response.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
+  return (
+    <AppLoading loading={loading}>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>{userData?.userName}</Text>
+        <View style={{ marginHorizontal: 30 }}>
+          <View style={styles.toggleContainer}>
+            <TouchableOpacity
+              style={service === 0 ? styles.activeToggle : styles.inactiveToggle}
+              onPress={() => {
+                setService(0);
+              }}
+            >
+              <Text style={service === 0 ? styles.activeText : styles.inactiveText}>Chauffer service</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={service === 1 ? styles.activeToggle : styles.inactiveToggle}
+              onPress={() => {
+                setService(1);
+              }}
+            >
+              <Text style={service === 1 ? styles.activeText : styles.inactiveText}>Car Rental</Text>
+            </TouchableOpacity>
+          </View>
+
+          <Card
+            title={'Today'}
+            Icon={BookingGold}
+            amount={userData?.todaysBookings?.length}
+            amountSubtitle={'Bookings'}
+          />
+          <Card
+            title={'New offers'}
+            Icon={BookingGold}
+            amount={userData?.newOffers.length}
+            amountSubtitle={'New offers'}
+          />
+          <Card
+            title={'Earnings'}
+            Icon={Earning}
+            amount={`${userData?.totalEarnings} USD`}
+            amountSubtitle={'Total earnings'}
+            transactions={
+              service === 0
+                ? [
+                  { title: `Transfer(${userData?.transferBookingsCounter})`, amount: userData?.transferEarnings },
+                  { title: `By the hour(${userData?.hourlyBookingsCounter})`, amount: userData?.hourlyEarnings },
                 ]
-              : [{ title: 'Car rental(0)', amount: '0.00' }]
-          }
-        />
-        <Card
-          title={'Chauffeurs'}
-          Icon={ChauffeurGold}
-          amount={1}
-          amountSubtitle={'Active chauffeurs'}
-        />
-        <Card
-          title={'Vehicles'}
-          Icon={VehicleGold}
-          amount={1}
-          amountSubtitle={'Active chauffeurs'}
-        />
-      </View>
-    </ScrollView>
+                : [{ title: `Car rental(${userData?.carRentalBookingsCounter})`, amount: userData?.carRentalEarnings }]
+            }
+          />
+          <Card
+            title={service === 0 ? 'Chauffeurs' : 'Agents'}
+            Icon={ChauffeurGold}
+            amount={service === 0 ? userData?.chauffeurs : userData?.agents}
+            amountSubtitle={`Active ${service === 0 ? 'chauffeurs' : 'agents'}`}
+          />
+          <Card
+            title={'Vehicles'}
+            Icon={VehicleGold}
+            amount={userData?.vehicles}
+            amountSubtitle={'Active vehicles'}
+          />
+        </View>
+      </ScrollView>
+    </AppLoading>
   );
 };
 
@@ -109,10 +135,14 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     width: 150,
   },
-  toggleText: {
+  inactiveText: {
     color: '#8b959e',
     textAlign: 'center',
   },
+  activeText: {
+    color: '#fbfbfb',
+    textAlign: 'center',
+  }
 });
 
 export default HomeScreen;
