@@ -15,6 +15,7 @@ import BookingGold from '../../assets/images/icons/icon-bookings-gold.png';
 import Earning from '../../assets/images/icons/icon-earnings.png';
 import ChauffeurGold from '../../assets/images/icons/icon-chauffeur-gold.png';
 import VehicleGold from '../../assets/images/icons/icon-vehicle-gold.png';
+import { getData, setData, removeData } from '../../utils/storage';
 
 const HomeScreen = () => {
   const [service, setService] = useState(0);
@@ -22,15 +23,18 @@ const HomeScreen = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchData()
+    fetchData();
     return () => {
     }
   }, [])
 
   const fetchData = async () => {
     try {
+      //settingup dummy token = bba801238acb
+      await setData('authToken', 'bba801238acb');
+      const token = await getData('authToken');
       setLoading(true);
-      const response = await axios.get('https://staging.rolzo.com/api/api/v1/external/partnerToken/bba801238acb/home-page?page=1&limit=10');
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/home-page?page=1&limit=10`);
       setUserData(response.data?.data);
       setLoading(false);
     } catch (error) {
@@ -72,7 +76,7 @@ const HomeScreen = () => {
           <Card
             title={'New offers'}
             Icon={BookingGold}
-            amount={userData?.newOffers.length}
+            amount={userData?.newOffers?.length}
             amountSubtitle={'New offers'}
           />
           <Card

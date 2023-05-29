@@ -16,7 +16,8 @@ const RootStack = () => {
             headerShown: false,
           }}
         >
-          {isSessionValid ? (
+          {isSessionValid || true ? (
+
             <Stack.Screen name="Main" component={MainStack}></Stack.Screen>
           ) : (
             <Stack.Screen name="Auth" component={AuthStack}></Stack.Screen>

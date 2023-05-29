@@ -6,6 +6,7 @@ import messaging from '@react-native-firebase/messaging';
 import { firebase } from '../../firebaseConfig';
 import * as Device from 'expo-device';
 import { getExpoPushTokenAsync } from 'expo-notifications';
+import { getData } from '../utils/storage';
 
 export const AuthContext = createContext();
 
@@ -65,8 +66,8 @@ export function AuthProvider(props) {
 
   const restoreSession = useCallback(async () => {
     try {
-      const fcmToken = await messaging().getToken();
-      const token = await AsyncStorage.getItem('authToken');
+      // const fcmToken = await messaging().getToken();
+      const token = await getData('authToken');
       const isTokenValid = await validateToken(token);
       if (isTokenValid) {
         setToken(token);
