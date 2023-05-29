@@ -3,8 +3,27 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 
 import { icons } from '../../assets/images';
 import Button from '../../components/Button';
+import { getLabelByValue } from '../../utils/constants';
 
-const BookingCard = () => {
+const BookingCard = ({ booking }) => {
+
+  const getFormatedDate = (defaultFormate) => {
+    const [datePart, timePart] = defaultFormate.split(',');
+    const [day, month, year] = datePart.split('/');
+    const [hours, minutes] = timePart.split(':');
+    const pickupDate = new Date(year, month - 1, day, hours, minutes);
+    const formattedDate = pickupDate.toLocaleString('en-US', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+
+    return formattedDate;
+  }
 
   const BookingCardItem = ({ Icon, text }) => {
     return (
@@ -16,28 +35,29 @@ const BookingCard = () => {
       </View>
     )
   }
-  const BookingCardFooter = () => {
+  const BookingCardFooter = ({ price, viewCallback }) => {
+
     return (
       <View>
         <View style={styles.bookingCardFooterAmount}>
           <Text style={styles.bookingCardFooterAmountText}>
-            39.00 USD
+            {price?.toFixed(2)} USD
           </Text>
         </View>
         <View style={styles.bookingCardFooterButton}>
-          <Button label={'View'} />
+          <Button label={'View'} onPress={viewCallback} />
         </View>
       </View>
     )
   }
-  const BookingCardHeader = () => {
+  const BookingCardHeader = ({ number, title, status }) => {
     return (
       <View style={styles.bookingCardHeader}>
         <Text style={styles.bookingCardHeaderText}>
-          #4205-R
+          #{number}
         </Text>
         <Text style={styles.bookingCardHeaderText}>
-          TRANSFER
+          {title}
         </Text>
         <View style={styles.bookingCardHeaderStatus}>
           <Text style={styles.bookingCardHeaderStatusText}>
@@ -51,17 +71,17 @@ const BookingCard = () => {
   return (
     <View style={styles.bookingCardContainer}>
       {/* header */}
-      <BookingCardHeader />
+      <BookingCardHeader number={booking?.number} title={getLabelByValue(booking?.type)} />
       {/* body */}
       <View style={styles.bookingCardBody}>
         {/* Items */}
-        <BookingCardItem Icon={icons.calanderIcon} text={'Wed 24th May 2023, 4:45 PM'} />
-        <BookingCardItem Icon={icons.carIcon} text={'Lexus S350'} />
-        <BookingCardItem Icon={icons.locationIcon} text={'Dubai Mall - Dubai - United Arab Emirates'} />
-        <BookingCardItem Icon={icons.flagIcon} text={'Mall of the Emirates - Sheikh Zayed Road - Dubai - United Arab Emirates'} />
+        <BookingCardItem Icon={icons.calanderIcon} text={getFormatedDate(booking?.pickUpDateString)} />
+        <BookingCardItem Icon={icons.carIcon} text={booking?.vehicleName} />
+        <BookingCardItem Icon={icons.locationIcon} text={booking?.pickUpLocation?.fullAddress} />
+        <BookingCardItem Icon={icons.flagIcon} text={booking?.dropOffLocation?.fullAddress} />
       </View>
       {/* footer */}
-      <BookingCardFooter />
+      <BookingCardFooter price={booking?.buyingPrice} viewCallback={() => { }} />
     </View>
 
   )
@@ -78,6 +98,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(139, 149, 158, 0.2)',
     position: 'relative',
+    marginBottom: 30
   },
   bookingCardHeader: {
     justifyContent: 'space-between',

@@ -1,17 +1,76 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, FlatList } from 'react-native';
+
 import { icons } from '../../assets/images';
 import Searchbar from './Searchbar'
 import NotFound from './NotFound'
 import AppModal from '../../components/Modal';
 import FilterContent from './FilterContent';
+import BookingCard from './BookingCard';
+import AppLoading from '../../components/Loading/AppLoading';
+import { getData } from '../../utils/storage';
+import axios from 'axios';
 
 const Planned = () => {
 
   const [search, setSearch] = useState('');
+  const [plannedBookings, setPlannedBookings] = useState(null)
   const [filterVisiblity, setFilterVisiblity] = useState(false)
   const [vehicle, setVehicle] = useState('');
   const [chauffeur, setChauffeur] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getPlannedBooking();
+    return () => {
+    }
+  }, [])
+
+  const getCars = async () => {
+    try {
+      const token = await getData('authToken');
+      setLoading(true);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/car/${token}`);
+      setVehicle(response.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+  const getChauffeur = async () => {
+    try {
+      const token = await getData('authToken');
+      setLoading(true);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/chauffeur/${token}`);
+      setChauffeur(response.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
+  const getPlannedBooking = async () => {
+    try {
+      const token = await getData('authToken');
+      setLoading(true);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/planned?page=1&limit=10`);
+      setPlannedBookings(response?.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
+  const renderItem = ({ item }) => {
+    return (
+      <BookingCard booking={item} />
+    )
+  }
+
+  console.log(plannedBookings?.length);
 
   return (
     <View style={styles.container}>
@@ -21,11 +80,23 @@ const Planned = () => {
         handleSearch={e => setSearch(e)}
         handleFilter={() => setFilterVisiblity(true)}
       />
-      <NotFound
-        title='No planned bookings'
-        subTitle={`You don't have any planned bookings yet`}
-        Icon={icons.bookingGrey}
-      />
+
+      <AppLoading loading={loading}>
+        {plannedBookings === null || plannedBookings?.length === 0 ?
+          <NotFound
+            title='No planned bookings'
+            subTitle={`You don't have any planned bookings yet`}
+            Icon={icons.bookingGrey}
+          /> :
+          <FlatList
+            data={plannedBookings ?? []}
+            renderItem={renderItem}
+            keyExtractor={item => item._id}
+            style={{ marginTop: 30 }}
+            showsVerticalScrollIndicator={false}
+          />
+        }
+      </AppLoading>
 
       <AppModal
         visible={filterVisiblity}

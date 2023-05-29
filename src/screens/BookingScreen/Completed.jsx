@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, FlatList } from 'react-native';
 
 import axios from 'axios';
 
@@ -8,21 +8,20 @@ import Searchbar from './Searchbar'
 import NotFound from './NotFound'
 import AppModal from '../../components/Modal';
 import FilterContent from './FilterContent';
-import Button from '../../components/Button';
 import { getData } from '../../utils/storage';
 import BookingCard from './BookingCard';
-BookingCard
+import AppLoading from '../../components/Loading/AppLoading';
+
 const Completed = () => {
 
   const [search, setSearch] = useState('');
+  const [completedBookings, setCompletedBookings] = useState(null)
   const [filterVisiblity, setFilterVisiblity] = useState(false)
   const [vehicle, setVehicle] = useState('');
   const [chauffeur, setChauffeur] = useState('');
-  const [loading, setLoading] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // getCars();
-    // getChauffeur();
     getCompletedBooking();
     return () => {
     }
@@ -57,13 +56,19 @@ const Completed = () => {
     try {
       const token = await getData('authToken');
       setLoading(true);
-      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/completed-rentals?page=1&limit=10`);
-      console.log('getCompletedBooking', response.data);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/completed?page=1&limit=10`);
+      setCompletedBookings(response.data.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);
     }
+  }
+
+  const renderItem = ({ item }) => {
+    return (
+      <BookingCard booking={item} />
+    )
   }
 
   return (
@@ -74,13 +79,24 @@ const Completed = () => {
         handleSearch={e => setSearch(e)}
         handleFilter={() => setFilterVisiblity(true)}
       />
-      {/* <NotFound
-        title='No completed bookings'
-        subTitle={`You don't have any completed bookings yet`}
-        Icon={icons.bookingGrey}
-      /> */}
 
-      <BookingCard />
+
+      <AppLoading loading={loading}>
+        {completedBookings === null || completedBookings?.length === 0 ?
+          <NotFound
+            title='No completed bookings'
+            subTitle={`You don't have any completed bookings yet`}
+            Icon={icons.bookingGrey}
+          /> :
+          <FlatList
+            data={completedBookings ?? []}
+            renderItem={renderItem}
+            keyExtractor={item => item._id}
+            style={{ marginTop: 30 }}
+            showsVerticalScrollIndicator={false}
+          />
+        }
+      </AppLoading>
 
       <AppModal
         visible={filterVisiblity}
