@@ -67,7 +67,7 @@ const Completed = () => {
 
   const renderItem = ({ item }) => {
     return (
-      <BookingCard booking={item} />
+      <BookingCard booking={item} status={'completed'} />
     )
   }
 

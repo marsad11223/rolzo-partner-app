@@ -14,7 +14,7 @@ import Completed from './Completed';
 
 
 const BookingScreen = () => {
-  
+
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
 
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 34,
-    marginTop: 60,
+    marginTop: 40,
   },
 });
 

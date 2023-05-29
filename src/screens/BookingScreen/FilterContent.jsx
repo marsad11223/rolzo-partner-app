@@ -37,7 +37,9 @@ const FilterContent = ({
 
       <View style={styles.bottomContainer}>
         <Text style={{ color: Colors.primary }} onPress={clearFilter}>Clear All</Text>
-        <Button label={'Apply'} onPress={applyFilter} />
+        <View style={{ width: '40%' }}>
+          <Button label={'Apply'} onPress={applyFilter} />
+        </View>
       </View>
     </View>
   )

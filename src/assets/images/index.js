@@ -11,10 +11,14 @@ const search = require('./icons/Icon_Search_Inactive.png');
 const close = require('./icons/close-icon.png');
 const calendar = require('./icons/calendar_active.png');
 const arrowDown = require('./icons/caret-down.svg');
-const calanderIcon = require('./icon_calendar.png')
-const carIcon = require('./icon_car.png')
-const locationIcon = require('./icon-location.png')
-const flagIcon = require('./icon-flag.png')
+const calanderIcon = require('./icon_calendar.png');
+const carIcon = require('./icon_car.png');
+const locationIcon = require('./icon-location.png');
+const flagIcon = require('./icon-flag.png');
+const backIcon = require('./icon-back.png');
+const timeIcon = require('./icon-time.png');
+const team = require('./icons/team.png');
+const portfolio = require('./icons/portfolio.png');
 
 const icons = {
   back,
@@ -33,7 +37,11 @@ const icons = {
   calanderIcon,
   carIcon,
   flagIcon,
-  locationIcon
+  locationIcon,
+  backIcon,
+  timeIcon,
+  team,
+  portfolio
 };
 
 export { icons };

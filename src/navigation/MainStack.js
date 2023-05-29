@@ -1,12 +1,14 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BookingScreen, HomeScreen } from '../screens';
+import { createStackNavigator } from '@react-navigation/stack';
+import { BookingScreen, HomeScreen, BookingDetailsScreen } from '../screens';
 import { icons } from '../assets/images';
 
 const Tab = createBottomTabNavigator();
+const Main = createStackNavigator();
 
-const MainStack = () => {
+const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -41,6 +43,15 @@ const MainStack = () => {
       <Tab.Screen name="Bookings" component={BookingScreen} />
       <Tab.Screen name="Accounts" component={HomeScreen} />
     </Tab.Navigator>
+  );
+}
+
+const MainStack = () => {
+  return (
+    <Main.Navigator screenOptions={{ headerShown: false }} >
+      <Main.Screen name="Tabs" component={Tabs} />
+      <Main.Screen name="BookingDetails" component={BookingDetailsScreen} />
+    </Main.Navigator>
   );
 };
 

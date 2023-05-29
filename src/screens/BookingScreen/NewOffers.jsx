@@ -65,7 +65,7 @@ const NewOffers = () => {
 
   const renderItem = ({ item }) => {
     return (
-      <BookingCard booking={item} />
+      <BookingCard booking={item} status='pending' />
     )
   }
   return (
