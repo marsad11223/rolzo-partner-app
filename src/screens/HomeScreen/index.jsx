@@ -30,8 +30,6 @@ const HomeScreen = () => {
 
   const fetchData = async () => {
     try {
-      //settingup dummy token = bba801238acb
-      await setData('authToken', 'bba801238acb');
       const token = await getData('authToken');
       setLoading(true);
       const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/home-page?page=1&limit=10`);

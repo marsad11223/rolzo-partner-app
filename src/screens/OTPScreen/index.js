@@ -31,8 +31,6 @@ const OTPScreen = ({ route, navigation }) => {
                 initialValues={{ code: '' }}
                 onSubmit={(values) => {
                   login(phone, currentSid, values.code);
-                  // navigation.navigate('Main')
-
                 }}
               >
                 {({ handleChange, handleBlur, handleSubmit, values }) => (
