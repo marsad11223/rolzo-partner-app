@@ -20,6 +20,10 @@ const timeIcon = require('./icon-time.png');
 const team = require('./icons/team.png');
 const portfolio = require('./icons/portfolio.png');
 const checklist = require('./icons/icon-checklist-grey.png');
+const chauffeurGrey = require('./icons/icon-chauffeur-grey.png');
+const chauffeurBlack = require('./icons/icon-chauffeur-black.png');
+const addCircle = require('./icons/add-circle.png');
+const editcircle = require('./edit_icon.png');
 
 const icons = {
   back,
@@ -43,7 +47,11 @@ const icons = {
   timeIcon,
   team,
   portfolio,
-  checklist
+  checklist,
+  chauffeurBlack,
+  chauffeurGrey,
+  addCircle,
+  editcircle
 };
 
 export { icons };
