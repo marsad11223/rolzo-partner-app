@@ -5,8 +5,9 @@ import Button from '../../components/Button';
 import { getLabelByValue, getStatus, secondsToMinutes } from '../../utils/constants';
 import { useNavigation } from '@react-navigation/native';
 
-const BookingCard = ({ booking, status, showCta = true, showDuration = false, extraDetails = false }) => {
+const BookingCard = ({ booking, status, showCta = true, extraDetails = false }) => {
   const navigation = useNavigation()
+
 
   const getFormatedDate = (defaultFormate) => {
     const [datePart, timePart] = defaultFormate?.split(',');
@@ -98,16 +99,16 @@ const BookingCard = ({ booking, status, showCta = true, showDuration = false, ex
         <BookingCardItem Icon={icons.carIcon} text={booking?.vehicleName} />
         <BookingCardItem Icon={icons.locationIcon} text={booking?.pickUpLocation?.fullAddress} />
         <BookingCardItem Icon={icons.flagIcon} text={booking?.dropOffLocation?.fullAddress} />
-        {showDuration &&
+        {booking?.duration &&
           <BookingCardItem
             Icon={icons.timeIcon}
-            text={secondsToMinutes(booking?.tripInfo?.duration)}
+            text={booking?.duration ? `${booking.duration} hours` : secondsToMinutes(booking?.tripInfo?.duration)}
           />
         }
 
       </View>
       {/* footer */}
-      <BookingCardFooter price={booking?.buyingPrice}
+      <BookingCardFooter price={booking?.dispatchPrice}
         viewCallback={() => {
           navigation.navigate('BookingDetails', { ...booking, bookingStatus: status })
         }} />

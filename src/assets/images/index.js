@@ -19,6 +19,7 @@ const backIcon = require('./icon-back.png');
 const timeIcon = require('./icon-time.png');
 const team = require('./icons/team.png');
 const portfolio = require('./icons/portfolio.png');
+const checklist = require('./icons/icon-checklist-grey.png');
 
 const icons = {
   back,
@@ -41,7 +42,8 @@ const icons = {
   backIcon,
   timeIcon,
   team,
-  portfolio
+  portfolio,
+  checklist
 };
 
 export { icons };
