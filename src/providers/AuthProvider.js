@@ -8,6 +8,10 @@ import * as Device from 'expo-device';
 import { getExpoPushTokenAsync } from 'expo-notifications';
 import { getData, setData } from '../utils/storage';
 
+const options = {
+  projectId: '0b6cc925-c0a5-4382-b757-f4799ce899a1',
+};
+
 export const AuthContext = createContext();
 
 export function AuthProvider(props) {
@@ -32,9 +36,10 @@ export function AuthProvider(props) {
     try {
       const response = await Auth.verifyOTP(phone, sid, code);
       if (response?.data?.status === 'approved' && Device.isDevice) {
-        const { data: token } = await getExpoPushTokenAsync();
+        const { data: token } = await getExpoPushTokenAsync(options);
         const response = await Auth.requestAuthToken(phone, code, token);
         if (response?.data?.partnerToken) {
+          await setData('authToken', response?.data?.partnerToken);
           setToken(response?.data?.partnerToken);
           setIsSessionValid(true);
         } else {

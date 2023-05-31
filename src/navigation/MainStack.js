@@ -2,7 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { BookingScreen, HomeScreen, BookingDetailsScreen, AccountScreen } from '../screens';
+import { BookingScreen, HomeScreen, BookingDetailsScreen, AccountScreen, ChaufferDetails } from '../screens';
 import { icons } from '../assets/images';
 
 const Tab = createBottomTabNavigator();
@@ -51,6 +51,7 @@ const MainStack = () => {
     <Main.Navigator screenOptions={{ headerShown: false }} >
       <Main.Screen name="Tabs" component={Tabs} />
       <Main.Screen name="BookingDetails" component={BookingDetailsScreen} />
+      <Main.Screen name="ChaufferDetails" component={ChaufferDetails} />
     </Main.Navigator>
   );
 };

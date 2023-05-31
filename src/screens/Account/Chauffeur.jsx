@@ -8,10 +8,12 @@ import SearchBar from './AccountSearch';
 import { icons } from '../../assets/images';
 import AddComponent from './AddComponent';
 import EditComponent from './EditComponent';
+import { useNavigation } from '@react-navigation/native';
 
 const Chauffer = () => {
 
   const [search, setSearch] = useState('');
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -35,7 +37,9 @@ const Chauffer = () => {
         Icon={icons.chauffeurBlack}
         title={'Abdullah Abc'}
         subtitle={'+923249407607'}
-        onPress={() => { }}
+        onPress={() => {
+          // navigation.navigate('ChaufferDetails')
+        }}
       />
     </View>
   );

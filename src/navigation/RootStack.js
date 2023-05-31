@@ -10,20 +10,22 @@ const Stack = createNativeStackNavigator();
 const RootStack = () => {
   return (
     <AuthContext.Consumer>
-      {({ isSessionValid }) => (
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          {isSessionValid ? (
+      {({ isSessionValid }) => {
+        return (
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            {isSessionValid ? (
 
-            <Stack.Screen name="Main" component={MainStack}></Stack.Screen>
-          ) : (
-            <Stack.Screen name="Auth" component={AuthStack}></Stack.Screen>
-          )}
-        </Stack.Navigator>
-      )}
+              <Stack.Screen name="Main" component={MainStack}></Stack.Screen>
+            ) : (
+              <Stack.Screen name="Auth" component={AuthStack}></Stack.Screen>
+            )}
+          </Stack.Navigator>
+        )
+      }}
     </AuthContext.Consumer>
   );
 };
