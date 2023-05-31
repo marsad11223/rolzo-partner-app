@@ -5,6 +5,16 @@ import BookingScreen from './BookingScreen';
 import BookingDetailsScreen from './BookingScreen/BookingDetailScreen/BookingDetailScreen';
 import AccountScreen from './Account';
 import EditChaufferDetails from './Account/EditChaufferDetails';
+import AddChaufferDetails from './Account/AddChaufferDetails';
 
 
-export { Login, OTPScreen, HomeScreen, BookingScreen, BookingDetailsScreen, AccountScreen, EditChaufferDetails };
+export {
+  Login,
+  OTPScreen,
+  HomeScreen,
+  BookingScreen,
+  BookingDetailsScreen,
+  AccountScreen,
+  EditChaufferDetails,
+  AddChaufferDetails
+};

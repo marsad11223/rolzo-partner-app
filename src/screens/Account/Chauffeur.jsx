@@ -31,7 +31,10 @@ const Chauffer = () => {
       <AddComponent
         Icon={icons.chauffeurGrey}
         title={'Add chauffeur'}
-        onPress={() => { }} />
+        onPress={() => {
+          navigation.navigate('AddChaufferDetails')
+        }}
+      />
       {/* Chauffeur */}
       <EditComponent
         Icon={icons.chauffeurBlack}

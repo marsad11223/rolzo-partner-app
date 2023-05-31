@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomColor: 'rgba(139,149,158,.2)',
     borderBottomWidth: 1.5,
-    marginTop: 20,
+    marginTop: 30,
   },
   backIcon: {
     height: 42,
