@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Input = styled(PhoneInput)`
+export const Input = styled(PhoneInput)`
   margin-bottom: 16px;
   border-width: ${StyleSheet.hairlineWidth}px;
   border-color: ${Colors.inputBorder};

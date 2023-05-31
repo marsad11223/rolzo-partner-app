@@ -38,7 +38,7 @@ const Chauffer = () => {
         title={'Abdullah Abc'}
         subtitle={'+923249407607'}
         onPress={() => {
-          // navigation.navigate('ChaufferDetails')
+          navigation.navigate('ChaufferDetails')
         }}
       />
     </View>

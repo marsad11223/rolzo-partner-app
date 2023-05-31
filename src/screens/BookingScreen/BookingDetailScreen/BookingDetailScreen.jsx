@@ -7,6 +7,7 @@ import Information from './Information';
 import TripUpdate from './TripUpdate';
 import Button from '../../../components/Button';
 import { Colors } from '../../../theme/variables';
+import Header from '../../../components/Header';
 
 const BookingDetailsScreen = ({ route, navigation }) => {
   const booking = route?.params
@@ -40,38 +41,6 @@ const BookingDetailsScreen = ({ route, navigation }) => {
       }}
     />
   );
-  const Header = () => {
-    return (
-      <TouchableOpacity style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderBottomColor: 'rgba(139,149,158,.2)',
-        borderBottomWidth: 1.5,
-        marginTop: 20
-      }}
-        activeOpacity={0.5}
-        onPress={() => { navigation.goBack() }}>
-        <Image
-          source={icons.backIcon}
-          style={{
-            height: 42,
-            width: 22,
-            resizeMode: 'contain',
-          }}
-        />
-        <Text style={{
-          fontSize: 18
-        }}>
-          Booking #{booking?.number}
-        </Text>
-        <View />
-
-      </TouchableOpacity>
-    )
-  }
 
   const handleAccept = async () => {
   }
@@ -81,7 +50,7 @@ const BookingDetailsScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       {/* header */}
-      <Header />
+      <Header title={`Booking #${booking?.number}`} />
       {/* body */}
       {booking?.bookingStatus === 'pending'
         ?
