@@ -2,17 +2,26 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { icons } from '../../assets/images';
 
-const EditComponent = ({ title, subtitle, Icon, onPress, borderLessImage = false }) => {
+const EditComponent = ({
+  title,
+  subtitle,
+  Icon,
+  onPress,
+  borderLessImage = false,
+  roundeImage = false
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
 
         {borderLessImage ?
           <Image style={styles.borderLessImage} source={Icon} /> :
-          <View style={styles.iconContainer}>
+          !roundeImage && <View style={styles.iconContainer}>
             <Image style={styles.icon} source={Icon} />
           </View>
         }
+        {roundeImage && <Image style={styles.roundeImage} source={Icon} />}
+
         <View style={styles.textContainer}>
           <Text style={styles.name}>{title}</Text>
           {subtitle && <Text style={styles.phone}>{subtitle}</Text>}
@@ -74,7 +83,18 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: 40,
     width: 80,
-  }
+  },
+  roundeImage: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 4,
+    borderColor: '#0c0c0c',
+    borderRadius: 40,
+    borderWidth: 1,
+    height: 40,
+    width: 40,
+    resizeMode: 'contain'
+  },
 });
 
 export default EditComponent;
