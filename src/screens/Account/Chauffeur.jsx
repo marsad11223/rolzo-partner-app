@@ -19,7 +19,7 @@ const Chauffer = () => {
   const navigation = useNavigation();
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
-  const [chauffeurs, setChauffeurs] = useState(null);
+  const [chauffeurs, setChauffeurs] = useState([]);
 
   useEffect(() => {
     fetchChauffeurs();
@@ -40,8 +40,20 @@ const Chauffer = () => {
     }
   }
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
     const profilePic = item.profilePicture ? { uri: item.profilePicture } : icons.chauffeurBlack;
+
+    if (index == 0) {
+      return (
+        <AddComponent
+          Icon={icons.chauffeurGrey}
+          title={'Add chauffeur'}
+          onPress={() => {
+            navigation.navigate('AddChaufferDetails')
+          }}
+        />
+      )
+    }
     return (
       <EditComponent
         Icon={profilePic}
@@ -58,7 +70,7 @@ const Chauffer = () => {
   return (
     <AppLoading loading={loading}>
       <View style={styles.container}>
-        {/* search */}
+
         <View style={{
           marginTop: 30,
         }}>
@@ -68,17 +80,9 @@ const Chauffer = () => {
             handleSearch={e => setSearch(e)}
           />
         </View>
-        {/* AddChauffer */}
-        <AddComponent
-          Icon={icons.chauffeurGrey}
-          title={'Add chauffeur'}
-          onPress={() => {
-            navigation.navigate('AddChaufferDetails')
-          }}
-        />
-        {/* Chauffeur */}
+
         <FlatList
-          data={chauffeurs ?? []}
+          data={chauffeurs ? [0, ...chauffeurs] : [0]}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}

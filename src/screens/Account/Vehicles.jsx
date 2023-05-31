@@ -19,12 +19,12 @@ const Vehicles = () => {
   const [vehicles, setVehicles] = useState(null);
 
   useEffect(() => {
-    fetchChauffeurs();
+    fetchVehicles();
     return () => {
     }
   }, [])
 
-  const fetchChauffeurs = async () => {
+  const fetchVehicles = async () => {
     try {
       const token = await getData('authToken');
       setLoading(true);
@@ -37,8 +37,18 @@ const Vehicles = () => {
     }
   }
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
     const profilePic = item.vehicleImage ? { uri: item.vehicleImage } : icons.carIcon;
+
+    if (index === 0) {
+      return (
+        <AddComponent
+          Icon={icons.chauffeurGrey}
+          title={'Add vehicle'}
+          onPress={() => { }}
+        />
+      )
+    }
     return (
       <EditComponent
         Icon={profilePic}
@@ -66,13 +76,8 @@ const Vehicles = () => {
           />
         </View>
 
-        <AddComponent
-          Icon={icons.chauffeurGrey}
-          title={'Add vehicle'}
-          onPress={() => { }} />
-
         <FlatList
-          data={vehicles ?? []}
+          data={vehicles ? [0, ...vehicles] : [0]}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}

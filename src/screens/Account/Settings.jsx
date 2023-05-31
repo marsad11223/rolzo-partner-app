@@ -1,36 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
-
 } from 'react-native';
-import SearchBar from './AccountSearch';
 import { icons } from '../../assets/images';
-import AddComponent from './AddComponent';
 import EditComponent from './EditComponent';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import { getData } from '../../utils/storage';
+import AppLoading from '../../components/Loading/AppLoading';
 
 const Settings = () => {
-  const [search, setSearch] = useState('');
+
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+  const [company, setCompany] = useState(null);
+
+  useEffect(() => {
+    fetchCompany();
+    return () => {
+    }
+  }, [])
+
+  const fetchCompany = async () => {
+    try {
+      const token = await getData('authToken');
+      setLoading(true);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/company/${token}`);
+      setCompany(response.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
 
   return (
-    <View style={styles.container}>
-      {/* search */}
-      <View style={{
-        marginTop: 30,
-      }}>
+    <AppLoading loading={loading}>
+      <View style={styles.container}>
+        <View style={{
+          marginTop: 30,
+        }}>
+        </View>
+        <EditComponent
+          Icon={icons.companyIcon}
+          title={company?.name}
+          subtitle={''}
+          onPress={() => {
+            navigation.navigate('EditCompanyDetails', company)
+          }}
+        />
       </View>
-      {/* Chauffeur */}
-      <EditComponent
-        Icon={icons.companyIcon}
-        title={'Supply App Company'}
-        subtitle={''}
-        onPress={() => {
-          navigation.navigate('EditCompanyDetails')
-        }}
-      />
-    </View>
+    </AppLoading>
   );
 };
 
