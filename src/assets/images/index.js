@@ -25,6 +25,7 @@ const chauffeurBlack = require('./icons/icon-chauffeur-black.png');
 const addCircle = require('./icons/add-circle.png');
 const editcircle = require('./edit_icon.png');
 const DeleteIcon = require('./icons/icon-delete.png');
+const companyIcon = require('./icon-company-black.png');
 
 const icons = {
   back,
@@ -53,7 +54,8 @@ const icons = {
   chauffeurGrey,
   addCircle,
   editcircle,
-  DeleteIcon
+  DeleteIcon,
+  companyIcon
 };
 
 export { icons };

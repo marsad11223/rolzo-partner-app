@@ -15,7 +15,7 @@ const EditComponent = ({ title, subtitle, Icon, onPress, borderLessImage = false
         }
         <View style={styles.textContainer}>
           <Text style={styles.name}>{title}</Text>
-          <Text style={styles.phone}>{subtitle}</Text>
+          {subtitle && <Text style={styles.phone}>{subtitle}</Text>}
         </View>
       </View>
       <TouchableOpacity onPress={onPress}>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: 'rgba(139,149,158,.5)',
     borderWidth: 1.5,
-    borderRadius: 10,
+    borderRadius: 5,
     padding: 20,
     justifyContent: 'space-between',
     marginTop: 20,
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginLeft: 20,
+    justifyContent: 'center',
   },
   name: {
     fontSize: 16,

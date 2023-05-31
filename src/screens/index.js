@@ -6,7 +6,7 @@ import BookingDetailsScreen from './BookingScreen/BookingDetailScreen/BookingDet
 import AccountScreen from './Account';
 import EditChaufferDetails from './Account/EditChaufferDetails';
 import AddChaufferDetails from './Account/AddChaufferDetails';
-
+import EditCompanyDetails from './Account/EditCompanyDetails';
 
 export {
   Login,
@@ -16,5 +16,6 @@ export {
   BookingDetailsScreen,
   AccountScreen,
   EditChaufferDetails,
-  AddChaufferDetails
+  AddChaufferDetails,
+  EditCompanyDetails
 };
