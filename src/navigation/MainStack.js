@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { icons } from '../assets/images';
 import { BookingScreen, HomeScreen, BookingDetailsScreen, AccountScreen, EditChaufferDetails, AddChaufferDetails, EditCompanyDetails } from '../screens';
+import { AuthContext } from '../providers/AuthProvider';
 
 const Tab = createBottomTabNavigator();
 const Main = createStackNavigator();
@@ -21,6 +22,8 @@ const Tabs = () => {
             IconName = focused ? icons.bookingBlack : icons.bookingGrey;
           } else if (route.name === 'Accounts') {
             IconName = focused ? icons.accountBlack : icons.accountGrey;
+          } else if (route.name === 'Logout') {
+            IconName = icons.logoutIcon
           }
 
           return (
@@ -42,6 +45,15 @@ const Tabs = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Bookings" component={BookingScreen} />
       <Tab.Screen name="Accounts" component={AccountScreen} />
+      <Tab.Screen name="Logout"
+        component={() => {
+          const { logout } = useContext(AuthContext);
+          useEffect(() => {
+            logout();
+          }, []);
+          return null;
+        }}
+      />
     </Tab.Navigator>
   );
 }

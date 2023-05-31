@@ -6,7 +6,7 @@ import messaging from '@react-native-firebase/messaging';
 import { firebase } from '../../firebaseConfig';
 import * as Device from 'expo-device';
 import { getExpoPushTokenAsync } from 'expo-notifications';
-import { getData, setData } from '../utils/storage';
+import { getData, removeData, setData } from '../utils/storage';
 
 const options = {
   projectId: '0b6cc925-c0a5-4382-b757-f4799ce899a1',
@@ -86,7 +86,7 @@ export function AuthProvider(props) {
 
   const logout = useCallback(() => {
     try {
-      AsyncStorage.removeItem('authToken');
+      removeData('authToken');
       setToken(null);
       setIsSessionValid(false);
     } catch (error) {
