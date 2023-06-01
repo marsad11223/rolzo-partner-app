@@ -51,7 +51,6 @@ export function AuthProvider(props) {
       setLoading(false);
       return response.data.sid;
     } catch (error) {
-      console.log('last catch ', error);
       setLoading(false);
       alert(error.message);
     }
@@ -60,7 +59,7 @@ export function AuthProvider(props) {
   const validateToken = useCallback(async (token) => {
     try {
       const response = await Auth.validateAuthToken(token);
-      if (response.isValid) {
+      if (response?.data?.isValid) {
         return true;
       } else return false;
     } catch (error) {
@@ -93,6 +92,7 @@ export function AuthProvider(props) {
       console.log(error.message);
     }
   }, []);
+
   const checkUserAvailable = useCallback(async (phone) => {
     setLoading(true);
     try {
@@ -107,8 +107,24 @@ export function AuthProvider(props) {
   useEffect(() => {
     // To logout forcefully
     // AsyncStorage.removeItem('authToken');
+    checkSession();
+  }, []);
 
-    restoreSession();
+  const checkSession = useCallback(async () => {
+    setLoading(true);
+    try {
+      setLoading(true);
+      const token = await getData('authToken');
+      if (token) {
+        restoreSession();
+      }
+      else {
+        logout()
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   }, []);
 
   return (
