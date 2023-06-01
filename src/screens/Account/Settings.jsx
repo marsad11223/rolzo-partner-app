@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { icons } from '../../assets/images';
 import EditComponent from './EditComponent';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { getData } from '../../utils/storage';
 import AppLoading from '../../components/Loading/AppLoading';
@@ -15,12 +15,13 @@ const Settings = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [company, setCompany] = useState(null);
+  const focused = useIsFocused();
 
   useEffect(() => {
-    fetchCompany();
+    focused && fetchCompany();
     return () => {
     }
-  }, [])
+  }, [focused])
 
   const fetchCompany = async () => {
     try {

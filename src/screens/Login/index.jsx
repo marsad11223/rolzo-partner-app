@@ -69,7 +69,7 @@ const Login = ({ navigation }) => {
             <View style={styles.form}>
               <Formik
                 validationSchema={LoginSchema}
-                initialValues={{ phone: '' }}
+                initialValues={{ phone: '+923060600282' }}
                 onSubmit={(values) => {
                   checkUserAvailable(values.phone)
                     .then((response) => {
