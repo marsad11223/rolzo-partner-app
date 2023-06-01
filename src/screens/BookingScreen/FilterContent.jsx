@@ -4,7 +4,6 @@ import { SelectionComponent, CalendarInput } from "../../components/Inputs";
 import Button from "../../components/Button";
 import { Colors } from "../../theme/variables";
 
-Colors
 const FilterContent = ({
   fromSelect,
   toSelect,
