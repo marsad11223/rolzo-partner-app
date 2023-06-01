@@ -4,7 +4,7 @@ import {
   StyleSheet,
   FlatList
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 import SearchBar from './AccountSearch';
@@ -20,12 +20,13 @@ const Chauffer = () => {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [chauffeurs, setChauffeurs] = useState([]);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    fetchChauffeurs();
+    isFocused && fetchChauffeurs();
     return () => {
     }
-  }, [])
+  }, [isFocused])
 
   const fetchChauffeurs = async () => {
     try {
@@ -51,6 +52,7 @@ const Chauffer = () => {
           onPress={() => {
             navigation.navigate('AddChaufferDetails')
           }}
+          key={0}
         />
       )
     }
@@ -61,8 +63,9 @@ const Chauffer = () => {
         subtitle={item.phoneNumber}
         roundeImage={item.profilePicture ? true : false}
         onPress={() => {
-          navigation.navigate('ChaufferDetails')
+          navigation.navigate('EditChaufferDetails', item)
         }}
+        key={item._id}
       />
     )
   }
@@ -82,7 +85,7 @@ const Chauffer = () => {
         </View>
 
         <FlatList
-          data={chauffeurs ? [0, ...chauffeurs] : [0]}
+          data={chauffeurs ? [{ _id: '1' }, ...chauffeurs] : [{ _id: '1' }]}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}

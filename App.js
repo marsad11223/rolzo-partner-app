@@ -6,6 +6,8 @@ import Toast from 'react-native-toast-message';
 
 import { AuthProvider } from './src/providers/AuthProvider';
 import RootStack from './src/navigation/RootStack';
+import { setData } from './src/utils/storage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -19,18 +21,20 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <View style={{ zIndex: 999, }}>
-        <Toast position="top" ref={ref => Toast.setRef(ref)} visibilityTime={2000} />
-      </View>
-      <AuthProvider>
-        <View style={backgroundStyle}>
-          <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor="white"
-          />
-          <RootStack></RootStack>
+      <SafeAreaView style={{ flex: 1, backgroundColor: 'red' }}>
+        <View style={{ zIndex: 999, }}>
+          <Toast position="top" ref={ref => Toast.setRef(ref)} visibilityTime={2000} />
         </View>
-      </AuthProvider>
+        <AuthProvider>
+          <View style={backgroundStyle}>
+            <StatusBar
+              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+              backgroundColor="white"
+            />
+            <RootStack></RootStack>
+          </View>
+        </AuthProvider>
+      </SafeAreaView>
     </NavigationContainer>
   );
 }

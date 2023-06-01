@@ -2,109 +2,161 @@ import React, { useState, useRef } from 'react';
 import { View, StyleSheet, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import { getExampleNumber } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/examples.mobile.json';
-import DeviceCountry, {
-  TYPE_ANY,
-  TYPE_TELEPHONY,
-  TYPE_CONFIGURATION,
-} from 'react-native-device-country';
+import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
-import { icons } from '../../assets/images';
 import Header from '../../components/Header';
-import { Colors } from '../../theme/variables';
-import { Input } from '../Login';
+import AppLoading from '../../components/Loading/AppLoading';
 import { Button } from '../../components';
+import { Colors } from '../../theme/variables';
+import { icons } from '../../assets/images';
+import { Input } from '../Login';
+import { getData } from '../../utils/storage';
+import { fileToBase64, showToast } from '../../utils/helper';
 
 const AddChaufferDetails = () => {
+
+  const phone = useRef();
+  const navigation = useNavigation();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [maxLength, setMaxLength] = useState(13);
-  const [initialCountry, setInitialCountry] = useState('gb');
   const [isValid, setIsValid] = useState(false);
+  const [image, setImage] = useState(null);
+  const [base64, setBase64] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const phone = useRef();
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+      setBase64(await fileToBase64(result.assets[0].uri));
+    }
+  };
+
+  const handleSubmit = async () => {
+
+    const data = {
+      email: "",
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      profilePicture: base64 ?? ''
+    }
+
+    if (firstName == '' || lastName == '' || phoneNumber == '') {
+      showToast('Please fill all required fields')
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const token = await getData('authToken');
+      const response = await axios.post(`https://staging.rolzo.com/api/api/v1/external/chauffeur/${token}`, data);
+      setLoading(false);
+      if (response?.data?.meta?.success) {
+        showToast('Chauffeur Added')
+        navigation.goBack()
+      } else {
+        showToast(response?.data?.meta?.message)
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error, 'error');
+      showToast(error?.message)
+    }
+  }
 
   return (
     <View style={styles.container}>
       <Header title={'Add a chauffeur'} />
-
-      <View style={{
-        padding: 20,
-      }}>
-        <View style={styles.profileContainer}>
-          <View style={{
-            width: 125,
-            height: 130,
-            borderRadius: 100,
-            borderColor: '#8b959e',
-            borderWidth: 1,
-            padding: 20,
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            <Image source={icons.chauffeurGrey} style={styles.profilePhoto} />
+      <AppLoading loading={loading}>
+        <View style={{
+          padding: 20,
+        }}>
+          <View style={styles.profileContainer}>
+            {!image ? <View style={{
+              width: 125,
+              height: 130,
+              borderRadius: 100,
+              borderColor: '#8b959e',
+              borderWidth: 1,
+              padding: 20,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Image source={icons.chauffeurGrey} style={styles.profilePhoto} />
+            </View>
+              :
+              <Image source={{ uri: image }} style={styles.selectedImage} />
+            }
+            <TouchableOpacity onPress={pickImage}>
+              <Text style={styles.changePhotoText}>Upload photo</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity >
-            <Text style={styles.changePhotoText}>Change photo</Text>
-          </TouchableOpacity>
-        </View>
 
-        {/* First name and last name fields */}
-        <View style={styles.fieldContainer}>
-          <Text style={styles.label}>FIRST NAME*</Text>
-          <TextInput
-            style={styles.input}
-            value={firstName}
-            onChangeText={setFirstName}
-          />
-        </View>
-        <View style={styles.fieldContainer}>
-          <Text style={styles.label}>LAST NAME*</Text>
-          <TextInput
-            style={styles.input}
-            value={lastName}
-            onChangeText={setLastName}
-          />
-        </View>
-        <View style={styles.fieldContainer}>
-          <Text style={styles.label}>MOBILE NUMBER*</Text>
-          <Input
-            initialValue={''}
-            ref={phone}
-            // initialCountry="gb"
-            initialCountry={initialCountry}
-            onChangePhoneNumber={(number) => {
-              setPhoneNumber(number);
-              setIsValid(phone.current.isValidNumber());
-              setMaxLength(
-                phone.current.getISOCode().toUpperCase() === 'AT'
-                  ? 13
-                  : phone.current.getISOCode().toUpperCase() ===
-                    'BG'
+          <View style={styles.fieldContainer}>
+            <Text style={styles.label}>FIRST NAME*</Text>
+            <TextInput
+              style={styles.input}
+              value={firstName}
+              onChangeText={setFirstName}
+            />
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.label}>LAST NAME*</Text>
+            <TextInput
+              style={styles.input}
+              value={lastName}
+              onChangeText={setLastName}
+            />
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={styles.label}>MOBILE NUMBER*</Text>
+            <Input
+              initialValue={''}
+              ref={phone}
+              initialCountry="gb"
+              onChangePhoneNumber={(number) => {
+                setPhoneNumber(number);
+                setIsValid(phone.current.isValidNumber());
+                setMaxLength(
+                  phone.current.getISOCode().toUpperCase() === 'AT'
                     ? 13
-                    : getExampleNumber(
-                      phone.current.getISOCode().toUpperCase(),
-                      examples
-                    )?.number.length
-              );
-            }}
-            textProps={{
-              maxLength: maxLength,
-            }}
-            textStyle={{
-              color: 'black',
-            }}
-          />
-        </View>
+                    : phone.current.getISOCode().toUpperCase() ===
+                      'BG'
+                      ? 13
+                      : getExampleNumber(
+                        phone.current.getISOCode().toUpperCase(),
+                        examples
+                      )?.number.length
+                );
+              }}
+              textProps={{
+                maxLength: maxLength,
+              }}
+              textStyle={{
+                color: 'black',
+              }}
+            />
+          </View>
 
-      </View>
-
-      <View style={styles.bottomContainer}>
-        <View style={{ width: '90%' }}>
-          <Button label={'Save'} onPress={() => { }} />
         </View>
-      </View>
+        <View style={styles.bottomContainer}>
+          <View style={{ width: '90%' }}>
+            <Button label={'Save'} onPress={handleSubmit} />
+          </View>
+        </View>
+      </AppLoading>
     </View>
   );
 };
@@ -175,6 +227,17 @@ const styles = StyleSheet.create({
     borderTopColor: 'rgba(139,149,158,.25)',
     borderTopWidth: 1.5,
     paddingTop: 20
+  },
+  selectedImage: {
+    width: 125,
+    height: 130,
+    borderRadius: 100,
+    borderColor: '#8b959e',
+    borderWidth: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    resizeMode: 'contain'
   }
 });
 

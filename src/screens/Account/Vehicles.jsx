@@ -46,6 +46,7 @@ const Vehicles = () => {
           Icon={icons.chauffeurGrey}
           title={'Add vehicle'}
           onPress={() => { }}
+          key={0}
         />
       )
     }
@@ -58,6 +59,7 @@ const Vehicles = () => {
         onPress={() => {
           navigation.navigate('ChaufferDetails')
         }}
+        key={item._id}
       />
     )
   }
@@ -77,7 +79,7 @@ const Vehicles = () => {
         </View>
 
         <FlatList
-          data={vehicles ? [0, ...vehicles] : [0]}
+          data={vehicles ? [{ _id: 1 }, ...vehicles] : [{ _id: 1 }]}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}

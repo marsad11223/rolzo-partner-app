@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    marginTop: 60,
+    marginTop: 30,
     textAlign: 'center',
   },
   toggleContainer: {

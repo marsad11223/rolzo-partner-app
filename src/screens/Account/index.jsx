@@ -29,11 +29,11 @@ const AccountScreen = () => {
   ]);
 
   const renderScene = SceneMap({
-    first: () => <Chauffer />,
-    second: () => <Vehicles />,
-    third: () => <Earnings />,
-    fourth: () => <Payouts />,
-    fifth: () => <Settings />,
+    first: () => <Chauffer key={1} />,
+    second: () => <Vehicles key={2} />,
+    third: () => <Earnings key={3} />,
+    fourth: () => <Payouts key={4} />,
+    fifth: () => <Settings key={5} />,
   });
 
   const renderTabBar = (props) => (
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 34,
-    marginTop: 40,
   },
 });
 
