@@ -4,19 +4,19 @@ import {
   StyleSheet,
   FlatList
 } from 'react-native';
-import SearchBar from './AccountSearch';
-import { icons } from '../../assets/images';
-import AddComponent from './AddComponent';
-import EditComponent from './EditComponent';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import { getData } from '../../utils/storage';
-import AppLoading from '../../components/Loading/AppLoading';
 
-const Earnings = () => {
-  const navigation = useNavigation();
+import SearchBar from '../AccountSearch';
+import { icons } from '../../../assets/images';
+import AddComponent from '../AddComponent';
+import EditComponent from '../EditComponent';
+import AppLoading from '../../../components/Loading/AppLoading';
+import { getData } from '../../../utils/storage';
 
+const Payouts = () => {
   const [search, setSearch] = useState('');
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [chauffeurs, setChauffeurs] = useState([]);
 
@@ -27,16 +27,16 @@ const Earnings = () => {
   }, [])
 
   const fetchChauffeurs = async () => {
-    // try {
-    //   const token = await getData('authToken');
-    //   setLoading(true);
-    //   const response = await axios.get(`https://staging.rolzo.com/api/api/v1/earnings/partner/${token}?page=1&limit=10`);
-    //   setChauffeurs(response.data?.data);
-    //   setLoading(false);
-    // } catch (error) {
-    //   setLoading(false);
-    //   console.log(error);
-    // }
+    try {
+      const token = await getData('authToken');
+      setLoading(true);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/payout/partner/${token}?page=1&limit=10`);
+      setChauffeurs(response.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   }
 
   const renderItem = ({ item, index }) => {
@@ -65,10 +65,10 @@ const Earnings = () => {
       />
     )
   }
-
   return (
     <AppLoading loading={loading}>
       <View style={styles.container}>
+        {/* search */}
         <View style={{
           marginTop: 30,
         }}>
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Earnings;
+export default Payouts;

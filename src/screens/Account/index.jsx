@@ -4,16 +4,14 @@ import {
   Text,
   StyleSheet,
   useWindowDimensions,
-  TextInput,
 } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 import { Chauffer } from './Chauffeurs';
-import Vehicles from './Vehicles';
-import Payouts from './Payouts';
+import { Vehicles } from './Vehicles';
+import { Earnings } from './Earnings';
+import { Payouts } from './Payouts';
 import Settings from './Settings';
-import Earnings from './Earnings';
 
 const AccountScreen = () => {
 

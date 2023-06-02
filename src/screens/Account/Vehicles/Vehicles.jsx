@@ -4,34 +4,32 @@ import {
   StyleSheet,
   FlatList
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import SearchBar from '../AccountSearch';
+import { icons } from '../../../assets/images';
+import AddComponent from '../AddComponent';
+import EditComponent from '../EditComponent';
+import AppLoading from '../../../components/Loading/AppLoading';
+import { getData } from '../../../utils/storage';
 import axios from 'axios';
 
-import SearchBar from './AccountSearch';
-import { icons } from '../../assets/images';
-import AddComponent from './AddComponent';
-import EditComponent from './EditComponent';
-import AppLoading from '../../components/Loading/AppLoading';
-import { getData } from '../../utils/storage';
+const Vehicles = () => {
 
-const Payouts = () => {
   const [search, setSearch] = useState('');
-  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const [chauffeurs, setChauffeurs] = useState([]);
+  const [vehicles, setVehicles] = useState(null);
 
   useEffect(() => {
-    fetchChauffeurs();
+    fetchVehicles();
     return () => {
     }
   }, [])
 
-  const fetchChauffeurs = async () => {
+  const fetchVehicles = async () => {
     try {
       const token = await getData('authToken');
       setLoading(true);
-      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/payout/partner/${token}?page=1&limit=10`);
-      setChauffeurs(response.data?.data);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/car/${token}?page=1&limit=10`);
+      setVehicles(response.data?.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -40,31 +38,32 @@ const Payouts = () => {
   }
 
   const renderItem = ({ item, index }) => {
-    const profilePic = item.profilePicture ? { uri: item.profilePicture } : icons.chauffeurBlack;
+    const profilePic = item.vehicleImage ? { uri: item.vehicleImage } : icons.carIcon;
 
-    if (index == 0) {
+    if (index === 0) {
       return (
         <AddComponent
           Icon={icons.chauffeurGrey}
-          title={'Add chauffeur'}
-          onPress={() => {
-            navigation.navigate('AddChaufferDetails')
-          }}
+          title={'Add vehicle'}
+          onPress={() => { }}
+          key={0}
         />
       )
     }
     return (
       <EditComponent
         Icon={profilePic}
-        title={item.chauffeurName}
-        subtitle={item.phoneNumber}
-        roundeImage={item.profilePicture ? true : false}
+        title={`${item.make.label} ${item.model.label}`}
+        subtitle={item.plateNumber}
+        borderLessImage
         onPress={() => {
           navigation.navigate('ChaufferDetails')
         }}
+        key={item._id}
       />
     )
   }
+
   return (
     <AppLoading loading={loading}>
       <View style={styles.container}>
@@ -73,17 +72,19 @@ const Payouts = () => {
           marginTop: 30,
         }}>
           <SearchBar
-            placeholder={'Search chauffeur name'}
+            placeholder={'Search vehicle'}
             value={search}
             handleSearch={e => setSearch(e)}
           />
         </View>
+
         <FlatList
-          data={chauffeurs ? [0, ...chauffeurs] : [0]}
+          data={vehicles ? [{ _id: 1 }, ...vehicles] : [{ _id: 1 }]}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}
         />
+
       </View>
     </AppLoading>
   );
@@ -95,4 +96,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Payouts;
+export default Vehicles;
