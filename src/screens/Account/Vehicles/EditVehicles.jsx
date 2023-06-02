@@ -10,11 +10,9 @@ import { AddComponent, EditComponent } from '../Components';
 import AppLoading from '../../../components/Loading/AppLoading';
 import { getData } from '../../../utils/storage';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
 
-const Vehicles = () => {
+const EditVehicles = () => {
 
-  const navigation = useNavigation();
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [vehicles, setVehicles] = useState(null);
@@ -46,7 +44,7 @@ const Vehicles = () => {
         <AddComponent
           Icon={icons.chauffeurGrey}
           title={'Add vehicle'}
-          onPress={() => { navigation.navigate('AddVehicleDetails') }}
+          onPress={() => { }}
           key={0}
         />
       )
@@ -58,7 +56,7 @@ const Vehicles = () => {
         subtitle={item.plateNumber}
         borderLessImage
         onPress={() => {
-          navigation.navigate('AddVehicleDetails')
+          navigation.navigate('ChaufferDetails')
         }}
         key={item._id}
       />
@@ -97,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Vehicles;
+export default EditVehicles;

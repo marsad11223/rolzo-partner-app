@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-const SelectionComponent = ({ options, selectedValue, onValueChange, placeholder }) => {
+const SelectionComponent = ({ options, selectedValue, onValueChange, placeholder, style = {} }) => {
 
   const handleValueChange = (value) => {
     if (selectedValue !== value) {
@@ -11,7 +11,7 @@ const SelectionComponent = ({ options, selectedValue, onValueChange, placeholder
   };
 
   return (
-    <View style={styles.border}>
+    <View style={[styles.border, { ...style }]}>
       <Picker
         onValueChange={handleValueChange}
         style={styles.container}

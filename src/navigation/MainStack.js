@@ -2,9 +2,20 @@ import React, { useContext, useEffect } from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { icons } from '../assets/images';
-import { BookingScreen, HomeScreen, BookingDetailsScreen, AccountScreen, EditChaufferDetails, AddChaufferDetails, EditCompanyDetails } from '../screens';
+
 import { AuthContext } from '../providers/AuthProvider';
+import { icons } from '../assets/images';
+import {
+  BookingScreen,
+  HomeScreen,
+  BookingDetailsScreen,
+  AccountScreen,
+  EditChaufferDetails,
+  AddChaufferDetails,
+  EditCompanyDetails,
+  AddVehicleDetails
+}
+  from '../screens';
 
 const Tab = createBottomTabNavigator();
 const Main = createStackNavigator();
@@ -66,6 +77,7 @@ const MainStack = () => {
       <Main.Screen name="EditChaufferDetails" component={EditChaufferDetails} />
       <Main.Screen name="AddChaufferDetails" component={AddChaufferDetails} />
       <Main.Screen name="EditCompanyDetails" component={EditCompanyDetails} />
+      <Main.Screen name="AddVehicleDetails" component={AddVehicleDetails} />
     </Main.Navigator>
   );
 };
