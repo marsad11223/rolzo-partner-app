@@ -11,7 +11,7 @@ import { Chauffer } from './Chauffeurs';
 import { Vehicles } from './Vehicles';
 import { Earnings } from './Earnings';
 import { Payouts } from './Payouts';
-import Settings from './Settings';
+import { Settings } from './Company';
 
 const AccountScreen = () => {
 

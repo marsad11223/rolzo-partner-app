@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput } from 'react-native';
-
-import Header from '../../components/Header';
-import { Colors } from '../../theme/variables';
-import { Button } from '../../components';
-import { getData } from '../../utils/storage';
-import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
-import AppLoading from '../../components/Loading/AppLoading';
 import Toast from 'react-native-toast-message';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+
+import Header from '../../../components/Header';
+import { Colors } from '../../../theme/variables';
+import { Button } from '../../../components';
+import AppLoading from '../../../components/Loading/AppLoading';
 
 const EditCompanyDetails = ({ route: { params } }) => {
 

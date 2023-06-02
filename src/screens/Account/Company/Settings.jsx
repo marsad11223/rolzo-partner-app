@@ -3,12 +3,13 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { icons } from '../../assets/images';
-import EditComponent from './EditComponent';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import { getData } from '../../utils/storage';
-import AppLoading from '../../components/Loading/AppLoading';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+
+import AppLoading from '../../../components/Loading/AppLoading';
+import EditComponent from '../EditComponent';
+import { icons } from '../../../assets/images';
+import { getData } from '../../../utils/storage';
 
 const Settings = () => {
 

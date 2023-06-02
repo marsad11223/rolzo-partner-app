@@ -4,7 +4,7 @@ import HomeScreen from './HomeScreen';
 import BookingScreen from './BookingScreen';
 import BookingDetailsScreen from './BookingScreen/BookingDetailScreen/BookingDetailScreen';
 import AccountScreen from './Account';
-import EditCompanyDetails from './Account/EditCompanyDetails';
+import { EditCompanyDetails } from './Account/Company';
 import { EditChaufferDetails, AddChaufferDetails } from './Account/Chauffeurs';
 
 export {
