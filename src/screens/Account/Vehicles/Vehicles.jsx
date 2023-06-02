@@ -4,10 +4,9 @@ import {
   StyleSheet,
   FlatList
 } from 'react-native';
-import SearchBar from '../AccountSearch';
+import SearchBar from '../Components/AccountSearch';
 import { icons } from '../../../assets/images';
-import AddComponent from '../AddComponent';
-import EditComponent from '../EditComponent';
+import { AddComponent, EditComponent } from '../Components';
 import AppLoading from '../../../components/Loading/AppLoading';
 import { getData } from '../../../utils/storage';
 import axios from 'axios';

@@ -5,7 +5,7 @@ import {
   TextInput,
   Image,
 } from 'react-native';
-import { icons } from '../../assets/images';
+import { icons } from '../../../assets/images';
 
 const Searchbar = ({ placeholder, value, handleSearch }) => {
 

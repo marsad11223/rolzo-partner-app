@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 import AppLoading from '../../../components/Loading/AppLoading';
-import EditComponent from '../EditComponent';
+import { EditComponent } from '../Components';
 import { icons } from '../../../assets/images';
 import { getData } from '../../../utils/storage';
 

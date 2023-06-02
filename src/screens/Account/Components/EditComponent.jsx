@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import { icons } from '../../assets/images';
+import { icons } from '../../../assets/images';
 
 const EditComponent = ({
   title,

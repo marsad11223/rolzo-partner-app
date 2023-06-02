@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import { icons } from '../../assets/images';
-import { Colors } from '../../theme/variables';
+import { icons } from '../../../assets/images';
+import { Colors } from '../../../theme/variables';
 
 const AddComponent = ({ title, Icon, onPress }) => {
   return (
