@@ -6,14 +6,14 @@ import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
-import { Input } from '../Login';
-import { Button } from '../../components';
-import Header from '../../components/Header';
-import AppLoading from '../../components/Loading/AppLoading';
-import { Colors } from '../../theme/variables';
-import { icons } from '../../assets/images';
-import { fileToBase64, showToast } from '../../utils/helper';
-import AppPopup from '../../components/Modal/AppPopup';
+import { Input } from '../../Login';
+import { Button } from '../../../components';
+import Header from '../../../components/Header';
+import AppLoading from '../../../components/Loading/AppLoading';
+import { Colors } from '../../../theme/variables';
+import { icons } from '../../../assets/images';
+import { fileToBase64, showToast } from '../../../utils/helper';
+import AppPopup from '../../../components/Modal/AppPopup';
 
 const EditChaufferDetails = ({ route: { params } }) => {
   const phone = useRef();

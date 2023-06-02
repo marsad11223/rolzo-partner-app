@@ -9,7 +9,7 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
-import Chauffer from './Chauffeur';
+import { Chauffer } from './Chauffeurs';
 import Vehicles from './Vehicles';
 import Payouts from './Payouts';
 import Settings from './Settings';

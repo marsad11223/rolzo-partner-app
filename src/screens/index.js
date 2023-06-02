@@ -4,9 +4,8 @@ import HomeScreen from './HomeScreen';
 import BookingScreen from './BookingScreen';
 import BookingDetailsScreen from './BookingScreen/BookingDetailScreen/BookingDetailScreen';
 import AccountScreen from './Account';
-import EditChaufferDetails from './Account/EditChaufferDetails';
-import AddChaufferDetails from './Account/AddChaufferDetails';
 import EditCompanyDetails from './Account/EditCompanyDetails';
+import { EditChaufferDetails, AddChaufferDetails } from './Account/Chauffeurs';
 
 export {
   Login,

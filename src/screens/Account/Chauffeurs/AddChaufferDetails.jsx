@@ -6,14 +6,14 @@ import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
-import Header from '../../components/Header';
-import AppLoading from '../../components/Loading/AppLoading';
-import { Button } from '../../components';
-import { Colors } from '../../theme/variables';
-import { icons } from '../../assets/images';
-import { Input } from '../Login';
-import { getData } from '../../utils/storage';
-import { fileToBase64, showToast } from '../../utils/helper';
+import Header from '../../../components/Header';
+import AppLoading from '../../../components/Loading/AppLoading';
+import { Button } from '../../../components';
+import { Colors } from '../../../theme/variables';
+import { icons } from '../../../assets/images';
+import { Input } from '../../Login';
+import { getData } from '../../../utils/storage';
+import { fileToBase64, showToast } from '../../../utils/helper';
 
 const AddChaufferDetails = () => {
 

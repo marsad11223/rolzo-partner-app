@@ -7,12 +7,12 @@ import {
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
-import SearchBar from './AccountSearch';
-import { icons } from '../../assets/images';
-import AddComponent from './AddComponent';
-import EditComponent from './EditComponent';
-import { getData } from '../../utils/storage';
-import AppLoading from '../../components/Loading/AppLoading';
+import SearchBar from '../AccountSearch';
+import { icons } from '../../../assets/images';
+import AddComponent from '../AddComponent';
+import EditComponent from '../EditComponent';
+import { getData } from '../../../utils/storage';
+import AppLoading from '../../../components/Loading/AppLoading';
 
 const Chauffer = () => {
 
