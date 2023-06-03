@@ -66,15 +66,20 @@ const AddVehicleDetails = () => {
       const token = await getData('authToken');
       setModelLoading(true);
       const response = await axios.get(`https://staging.rolzo.com/api/api/v1/global-fleet/partnerBrands/${id}/model/${token}?page=1&limit=30&filter[name,like]=`);
-      console.log(response.data?.data, 'response.data?.data');
-      setModel(() => {
-        return response.data?.data?.map(item => {
-          return {
-            value: item.id,
-            label: item.name
-          }
-        })
+
+      const uniqueModels = new Set();
+      response.data?.data?.forEach(item => {
+        uniqueModels.add(JSON.stringify(item));
       });
+
+      setModel([...uniqueModels].map(item => {
+        const model = JSON.parse(item);
+        return {
+          value: model.id,
+          label: model.name
+        }
+      }));
+
       setModelLoading(false);
     } catch (error) {
       setModelLoading(false);
