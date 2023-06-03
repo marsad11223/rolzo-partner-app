@@ -13,7 +13,8 @@ import {
   EditChaufferDetails,
   AddChaufferDetails,
   EditCompanyDetails,
-  AddVehicleDetails
+  AddVehicleDetails,
+  EditVehicleDetails
 }
   from '../screens';
 
@@ -78,6 +79,7 @@ const MainStack = () => {
       <Main.Screen name="AddChaufferDetails" component={AddChaufferDetails} />
       <Main.Screen name="EditCompanyDetails" component={EditCompanyDetails} />
       <Main.Screen name="AddVehicleDetails" component={AddVehicleDetails} />
+      <Main.Screen name="EditVehicleDetails" component={EditVehicleDetails} />
     </Main.Navigator>
   );
 };

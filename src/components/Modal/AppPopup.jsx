@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Modal, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { View, Modal, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { icons } from '../../assets/images';
 
 const AppPopup = ({ visible, onClose, children }) => {
-  console.log(children, 'children');
+
   return (
     <Modal visible={visible} transparent={true} animationType="fade">
       <View style={styles.modalContainer}>

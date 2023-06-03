@@ -60,7 +60,7 @@ const Vehicles = () => {
         subtitle={item.plateNumber}
         borderLessImage
         onPress={() => {
-          navigation.navigate('AddVehicleDetails')
+          navigation.navigate('EditVehicleDetails', item)
         }}
         key={item._id}
       />

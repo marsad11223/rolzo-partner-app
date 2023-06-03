@@ -6,7 +6,7 @@ import BookingDetailsScreen from './BookingScreen/BookingDetailScreen/BookingDet
 import AccountScreen from './Account';
 import { EditCompanyDetails } from './Account/Company';
 import { EditChaufferDetails, AddChaufferDetails } from './Account/Chauffeurs';
-import { AddVehicleDetails } from './Account/Vehicles';
+import { AddVehicleDetails, EditVehicleDetails } from './Account/Vehicles';
 
 export {
   Login,
@@ -18,5 +18,6 @@ export {
   EditChaufferDetails,
   AddChaufferDetails,
   EditCompanyDetails,
-  AddVehicleDetails
+  AddVehicleDetails,
+  EditVehicleDetails
 };
