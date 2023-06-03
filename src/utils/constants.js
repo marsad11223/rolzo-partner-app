@@ -7,6 +7,111 @@ export const defaultModeType = [
   { label: 'Meet & greet', value: 'isMeetGreet' },
 ]
 
+export const carYears = [
+  {
+    label: '2023',
+    value: '2023'
+  },
+  {
+    label: '2022',
+    value: '2022'
+  },
+  {
+    label: '2021',
+    value: '2021'
+  },
+  {
+    label: '2020',
+    value: '2020'
+  },
+  {
+    label: '2019',
+    value: '2019'
+  },
+  {
+    label: 'other',
+    value: 'other'
+  }
+];
+
+export const exteriorColors = [
+  {
+    label: 'Black',
+    value: 'Black'
+  },
+  {
+    label: 'Grey',
+    value: 'Grey'
+  },
+  {
+    label: 'Silver',
+    value: 'Silver'
+  },
+  {
+    label: 'White',
+    value: 'White'
+  },
+  {
+    label: 'Blue',
+    value: 'Blue'
+  },
+  {
+    label: 'Beige',
+    value: 'Beige'
+  },
+  {
+    label: 'Brown',
+    value: 'Brown'
+  },
+  {
+    label: 'Green',
+    value: 'Green'
+  },
+  {
+    label: 'Red',
+    value: 'Red'
+  },
+  {
+    label: 'Yellow',
+    value: 'Yellow'
+  }
+];
+
+export const interiorColors = [
+  {
+    label: 'Black',
+    value: 'Black'
+  },
+  {
+    label: 'Grey',
+    value: 'Grey'
+  },
+  {
+    label: 'Beige',
+    value: 'Beige'
+  },
+  {
+    label: 'Cream',
+    value: 'Cream'
+  },
+  {
+    label: 'White',
+    value: 'White'
+  },
+  {
+    label: 'Brown',
+    value: 'Brown'
+  },
+  {
+    label: 'Navy',
+    value: 'Navy'
+  },
+  {
+    label: 'Red',
+    value: 'Red'
+  }
+];
+
 export function getLabelByValue(value) {
   const modeType = defaultModeType.find((item) => item.value === value);
   return modeType ? modeType.label : '';
@@ -50,3 +155,4 @@ export function getStatus(status) {
       return {}
   }
 }
+

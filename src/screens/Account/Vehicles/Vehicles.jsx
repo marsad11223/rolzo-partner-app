@@ -4,26 +4,28 @@ import {
   StyleSheet,
   FlatList
 } from 'react-native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+
 import SearchBar from '../Components/AccountSearch';
 import { icons } from '../../../assets/images';
 import { AddComponent, EditComponent } from '../Components';
 import AppLoading from '../../../components/Loading/AppLoading';
 import { getData } from '../../../utils/storage';
-import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
 
 const Vehicles = () => {
 
   const navigation = useNavigation();
+  const focused = useIsFocused();
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [vehicles, setVehicles] = useState(null);
 
   useEffect(() => {
-    fetchVehicles();
+    focused && fetchVehicles();
     return () => {
     }
-  }, [])
+  }, [focused])
 
   const fetchVehicles = async () => {
     try {

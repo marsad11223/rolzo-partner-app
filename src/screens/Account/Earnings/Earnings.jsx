@@ -78,7 +78,7 @@ const Earnings = () => {
           />
         </View>
         <FlatList
-          data={chauffeurs ? [0, ...chauffeurs] : [0]}
+          data={chauffeurs ? [{ _id: 1 }, ...chauffeurs] : [{ _id: 1 }]}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}

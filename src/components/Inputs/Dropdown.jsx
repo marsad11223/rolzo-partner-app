@@ -19,7 +19,7 @@ const SelectionComponent = ({ options, selectedValue, onValueChange, placeholder
         selectionColor={'#fbfbfb'}
         selectedValue={selectedValue}
       >
-        <Picker.Item label={placeholder} value="Unknown" style={styles.placeholder} />
+        <Picker.Item label={placeholder} value='' style={styles.placeholder} />
         {options?.map((option, index) => (
           <Picker.Item key={index} label={option.label} value={option.value} style={styles.selectedValue} />
         ))}
