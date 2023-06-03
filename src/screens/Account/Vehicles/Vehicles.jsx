@@ -40,6 +40,19 @@ const Vehicles = () => {
     }
   }
 
+  const searchVehicles = async (search) => {
+    try {
+      const token = await getData('authToken');
+      setLoading(true);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/car/${token}?page=1&limit=10&filter[vehicleName,like]=${search}`);
+      setVehicles(response?.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
   const renderItem = ({ item, index }) => {
     const profilePic = item.vehicleImage ? { uri: item.vehicleImage } : icons.carIcon;
 
@@ -68,28 +81,31 @@ const Vehicles = () => {
   }
 
   return (
-    <AppLoading loading={loading}>
-      <View style={styles.container}>
-        {/* search */}
-        <View style={{
-          marginTop: 30,
-        }}>
-          <SearchBar
-            placeholder={'Search vehicle'}
-            value={search}
-            handleSearch={e => setSearch(e)}
-          />
-        </View>
+    <View style={styles.container}>
+      {/* search */}
+      <View style={{
+        marginTop: 30,
+      }}>
+        <SearchBar
+          placeholder={'Search vehicle'}
+          value={search}
+          handleSearch={e => {
+            setSearch(e);
+            searchVehicles(e);
+          }}
+        />
+      </View>
 
+      <AppLoading loading={loading}>
         <FlatList
           data={vehicles ? [{ _id: 1 }, ...vehicles] : [{ _id: 1 }]}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}
         />
+      </AppLoading>
 
-      </View>
-    </AppLoading>
+    </View>
   );
 };
 
