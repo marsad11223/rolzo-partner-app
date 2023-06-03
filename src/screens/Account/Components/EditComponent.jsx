@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   textContainer: {
     marginLeft: 20,
     justifyContent: 'center',
+    maxWidth: '70%'
   },
   name: {
     fontSize: 16,
