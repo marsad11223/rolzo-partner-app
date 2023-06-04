@@ -20,7 +20,6 @@ import { hp } from '../../../utils/responsiveness'
 const BookingDetailsScreen = ({ route }) => {
 
   const navigation = useNavigation();
-
   const layout = useWindowDimensions();
   const [booking, setBooking] = useState(route?.params);
   const [index, setIndex] = useState(0);
@@ -38,7 +37,6 @@ const BookingDetailsScreen = ({ route }) => {
   useEffect(() => {
     getSuplierId()
   }, [])
-
 
   const renderScene = SceneMap({
     first: () => <Information booking={booking} marginBottom={!booking?.dispatchChauffeurAssigned ? hp(80) : 0} />,

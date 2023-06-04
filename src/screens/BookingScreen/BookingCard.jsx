@@ -6,8 +6,8 @@ import { getLabelByValue, getStatus, secondsToMinutes } from '../../utils/consta
 import { useNavigation } from '@react-navigation/native';
 
 const BookingCard = ({ booking, status, showCta = true, extraDetails = false }) => {
-  const navigation = useNavigation()
 
+  const navigation = useNavigation()
 
   const getFormatedDate = (defaultFormate) => {
     const [datePart, timePart] = defaultFormate?.split(',');

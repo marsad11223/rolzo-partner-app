@@ -4,8 +4,10 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import BookingCard from '../BookingCard';
 import ImportantInformation from './ImportantInformation';
 import Warning from './Warning';
+import DriverInfo from './DriverInfo';
 
 const Information = ({ booking, marginBottom = 0 }) => {
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -15,8 +17,17 @@ const Information = ({ booking, marginBottom = 0 }) => {
           marginBottom: marginBottom
         }}
       >
-        {!booking?.dispatchChauffeurAssigned &&
+        {!(booking?.bookingStatus === 'pending') && !booking?.dispatchChauffeurAssigned &&
           <Warning title={'The chauffeur is not yet assigned.'} />
+        }
+        {
+          !(booking?.bookingStatus === 'pending') && booking?.driverTemp &&
+          <DriverInfo
+            name={booking?.driverTemp?.fullName}
+            phone={booking?.driverTemp?.phone}
+            plateNo={booking?.driverTemp?.plateNo}
+            vehicle={booking?.partnerVehicle}
+          />
         }
         <BookingCard
           booking={booking}
