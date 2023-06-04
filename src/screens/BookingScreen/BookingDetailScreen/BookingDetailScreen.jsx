@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, useWindowDimensions } from 'react-native';
+import { View, StyleSheet, Text, useWindowDimensions, TextInput } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -12,6 +12,10 @@ import Header from '../../../components/Header';
 import { getData } from '../../../utils/storage';
 import { showToast } from '../../../utils/helper';
 import AppLoading from '../../../components/Loading/AppLoading';
+import AppPopup from '../../../components/Modal/AppPopup';
+import { declineReasons } from '../../../utils/constants';
+import RadioButton from '../../../components/Button/RadioButton';
+import { hp } from '../../../utils/responsiveness'
 
 const BookingDetailsScreen = ({ route }) => {
 
@@ -22,6 +26,10 @@ const BookingDetailsScreen = ({ route }) => {
   const [index, setIndex] = useState(0);
   const [suplierId, setSuplierId] = useState(null);
   const [loading, setLoading] = useState(0);
+  const [declineModal, setDeclineModal] = useState(false);
+  const [declineReason, setDeclineReason] = useState(declineReasons[0].label);
+  const [declineComment, setDeclineComment] = useState('');
+
   const [routes] = useState([
     { key: 'first', title: 'Information' },
     { key: 'second', title: 'Trip updates' },
@@ -74,15 +82,18 @@ const BookingDetailsScreen = ({ route }) => {
   }
 
   const handleDecline = async () => {
+    const data = {
+      declineReason,
+      declineComment
+    }
     try {
       setLoading(true);
-      const response = await axios.post(
-        `https://staging.rolzo.com/api/api/v1/dispatch/${booking?._id}/${suplierId}/`
-      );
+      const response = await axios.patch(`https://staging.rolzo.com/api/api/v1/booking/cancelDispatchPartner/decline/${booking?._id}/${suplierId}/`, data);
       if (response?.data?.meta?.success) {
+        setDeclineModal(false);
         setLoading(false);
         navigation.goBack()
-        showToast('Accepted');
+        showToast('Declined');
       } else {
         showToast(response?.data?.meta?.message);
       }
@@ -123,7 +134,7 @@ const BookingDetailsScreen = ({ route }) => {
                 <Button label={'Accept offer'} onPress={handleAccept} />
               </View>
               <View style={{ width: '90%', marginBottom: 10 }}>
-                <Button label={'Decline'} backgroundColor={'#fbfbfb'} textColor={Colors.primary} onPress={handleDecline} />
+                <Button label={'Decline'} backgroundColor={'#fbfbfb'} textColor={Colors.primary} onPress={() => setDeclineModal(true)} />
               </View>
             </View>
           </>
@@ -137,6 +148,49 @@ const BookingDetailsScreen = ({ route }) => {
           />
         }
       </AppLoading>
+
+      <AppPopup visible={declineModal} onClose={() => { setDeclineModal(false) }}>
+        <View style={styles.popupContent}>
+          <Text style={styles.popupTitle}>Decline offer</Text>
+          <Text style={styles.popupText}>Choose the reason</Text>
+
+          {
+            declineReasons.map((reason) => {
+              return (
+                <RadioButton
+                  selectedReason={declineReason}
+                  setSelectedReason={setDeclineReason}
+                  title={reason.label}
+                  key={reason.id}
+                />
+              )
+            })
+          }
+          <View style={{
+            justifyContent: 'flex-start', width: '100%'
+          }}>
+            <Text style={{
+              marginBottom: 10,
+              marginTop: 20,
+              color: '#8b959e',
+              fontSize: 10
+            }}
+            >LEAVE A COMMENT
+            </Text>
+            <TextInput
+              style={styles.commentBox}
+              value={declineComment}
+              onChangeText={setDeclineComment}
+              multiline
+            />
+          </View>
+          <View style={{ width: '100%', alignItems: 'flex-end' }}>
+            <View style={styles.buttonContainer}>
+              <Button label={'Decline'} onPress={handleDecline} />
+            </View>
+          </View>
+        </View>
+      </AppPopup>
     </View>
   );
 };
@@ -158,6 +212,30 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     backgroundColor: '#fbfbfb',
     width: "100%"
+  },
+  buttonContainer: {
+    width: '50%'
+  },
+  popupContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  popupTitle: {
+    fontSize: 20,
+    marginBottom: 10,
+  },
+  popupText: {
+    fontSize: 17,
+    marginVertical: 15,
+    textAlign: 'left',
+    width: '100%'
+  },
+  commentBox: {
+    borderColor: 'rgba(139,149,158,.2)',
+    borderWidth: 1,
+    marginBottom: hp(20),
+    padding: hp(5)
   }
 });
 

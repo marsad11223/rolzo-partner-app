@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     width: '80%',
-    maxHeight: '70%',
+    maxHeight: '80%',
   },
   close: {
     height: 12,

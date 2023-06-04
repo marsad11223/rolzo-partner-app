@@ -112,6 +112,12 @@ export const interiorColors = [
   }
 ];
 
+export const declineReasons = [
+  { id: 1, label: 'No availablity' },
+  { id: 2, label: 'Wrong price' },
+  { id: 3, label: 'Other' }
+];
+
 export function getLabelByValue(value) {
   const modeType = defaultModeType.find((item) => item.value === value);
   return modeType ? modeType.label : '';
