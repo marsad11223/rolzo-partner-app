@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
 
 import { icons } from '../../assets/images';
 import Searchbar from './Searchbar'
@@ -9,10 +11,10 @@ import FilterContent from './FilterContent';
 import BookingCard from './BookingCard';
 import AppLoading from '../../components/Loading/AppLoading';
 import { getData } from '../../utils/storage';
-import axios from 'axios';
 
 const Planned = () => {
 
+  const isFocused = useIsFocused();
   const [search, setSearch] = useState('');
   const [plannedBookings, setPlannedBookings] = useState(null)
   const [filterVisiblity, setFilterVisiblity] = useState(false)
@@ -21,10 +23,10 @@ const Planned = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getPlannedBooking();
+    isFocused && getPlannedBooking();
     return () => {
     }
-  }, [])
+  }, [isFocused])
 
   const getCars = async () => {
     try {

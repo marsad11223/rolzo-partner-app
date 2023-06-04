@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Image, FlatList } from 'react-native';
-
+import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 
 import { icons } from '../../assets/images';
@@ -14,6 +14,7 @@ import AppLoading from '../../components/Loading/AppLoading';
 
 const Completed = () => {
 
+  const isFocused = useIsFocused()
   const [search, setSearch] = useState('');
   const [completedBookings, setCompletedBookings] = useState(null)
   const [filterVisiblity, setFilterVisiblity] = useState(false)
@@ -22,10 +23,10 @@ const Completed = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getCompletedBooking();
+    isFocused && getCompletedBooking();
     return () => {
     }
-  }, [])
+  }, [isFocused])
 
   const getCars = async () => {
     try {

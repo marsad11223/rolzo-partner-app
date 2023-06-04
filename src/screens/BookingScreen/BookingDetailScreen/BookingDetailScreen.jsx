@@ -1,24 +1,36 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, useWindowDimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Text, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
-import { icons } from '../../../assets/images';
 import Information from './Information';
 import TripUpdate from './TripUpdate';
 import Button from '../../../components/Button';
 import { Colors } from '../../../theme/variables';
 import Header from '../../../components/Header';
+import { getData } from '../../../utils/storage';
+import { showToast } from '../../../utils/helper';
+import AppLoading from '../../../components/Loading/AppLoading';
 
-const BookingDetailsScreen = ({ route, navigation }) => {
-  const booking = route?.params
+const BookingDetailsScreen = ({ route }) => {
+
+  const navigation = useNavigation();
+
   const layout = useWindowDimensions();
+  const [booking, setBooking] = useState(route?.params);
   const [index, setIndex] = useState(0);
+  const [suplierId, setSuplierId] = useState(null);
   const [loading, setLoading] = useState(0);
-
   const [routes] = useState([
     { key: 'first', title: 'Information' },
     { key: 'second', title: 'Trip updates' },
   ]);
+
+  useEffect(() => {
+    getSuplierId()
+  }, [])
+
 
   const renderScene = SceneMap({
     first: () => <Information booking={booking} />,
@@ -43,8 +55,57 @@ const BookingDetailsScreen = ({ route, navigation }) => {
   );
 
   const handleAccept = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        `https://staging.rolzo.com/api/api/v1/dispatch/${booking?._id}/${suplierId}/`
+      );
+      if (response?.data?.meta?.success) {
+        setLoading(false);
+        navigation.goBack()
+        showToast('Accepted');
+      } else {
+        showToast(response?.data?.meta?.message);
+      }
+    } catch (error) {
+      setLoading(false);
+      showToast(error?.message);
+    }
   }
-  const handleDecline = () => {
+
+  const handleDecline = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        `https://staging.rolzo.com/api/api/v1/dispatch/${booking?._id}/${suplierId}/`
+      );
+      if (response?.data?.meta?.success) {
+        setLoading(false);
+        navigation.goBack()
+        showToast('Accepted');
+      } else {
+        showToast(response?.data?.meta?.message);
+      }
+    } catch (error) {
+      setLoading(false);
+      showToast(error?.message);
+    }
+  }
+
+  const getSuplierId = async () => {
+    const token = await getData('authToken');
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://staging.rolzo.com/api/api/v1/external/partner/${token}?page=1&limit=10`
+      );
+      setLoading(false);
+      if (response?.data?.meta?.success) {
+        setSuplierId(response?.data?.data[0]?._id)
+      }
+    } catch (error) {
+      setLoading(false);
+    }
   }
 
   return (
@@ -52,28 +113,30 @@ const BookingDetailsScreen = ({ route, navigation }) => {
       {/* header */}
       <Header title={`Booking #${booking?.number}`} />
       {/* body */}
-      {booking?.bookingStatus === 'pending'
-        ?
-        <>
-          <Information booking={booking} marginBottom={140} />
-          <View style={styles.bottomContainer}>
-            <View style={{ width: '90%', marginBottom: 10 }}>
-              <Button label={'Accept offer'} onPress={() => { }} />
+      <AppLoading loading={loading}>
+        {booking?.bookingStatus === 'pending'
+          ?
+          <>
+            <Information booking={booking} marginBottom={140} />
+            <View style={styles.bottomContainer}>
+              <View style={{ width: '90%', marginBottom: 10 }}>
+                <Button label={'Accept offer'} onPress={handleAccept} />
+              </View>
+              <View style={{ width: '90%', marginBottom: 10 }}>
+                <Button label={'Decline'} backgroundColor={'#fbfbfb'} textColor={Colors.primary} onPress={handleDecline} />
+              </View>
             </View>
-            <View style={{ width: '90%', marginBottom: 10 }}>
-              <Button label={'Decline'} backgroundColor={'#fbfbfb'} textColor={Colors.primary} onPress={() => { }} />
-            </View>
-          </View>
-        </>
-        :
-        <TabView
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-          renderTabBar={renderTabBar}
-        />
-      }
+          </>
+          :
+          <TabView
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{ width: layout.width }}
+            renderTabBar={renderTabBar}
+          />
+        }
+      </AppLoading>
     </View>
   );
 };

@@ -10,8 +10,11 @@ import AppLoading from '../../components/Loading/AppLoading';
 import BookingCard from './BookingCard';
 import { getData } from '../../utils/storage';
 import axios from 'axios';
+import { useIsFocused } from '@react-navigation/native';
 
 const NewOffers = () => {
+
+  const isFocused = useIsFocused();
   const [search, setSearch] = useState('');
   const [newBooking, setNewBookings] = useState(null)
   const [filterVisiblity, setFilterVisiblity] = useState(false)
@@ -20,10 +23,10 @@ const NewOffers = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getNewBooking();
+    isFocused && getNewBooking();
     return () => {
     }
-  }, [])
+  }, [isFocused])
 
   const getCars = async () => {
     try {
