@@ -41,7 +41,7 @@ const BookingDetailsScreen = ({ route }) => {
 
 
   const renderScene = SceneMap({
-    first: () => <Information booking={booking} />,
+    first: () => <Information booking={booking} marginBottom={!booking?.dispatchChauffeurAssigned ? hp(80) : 0} />,
     second: () => <TripUpdate />,
   });
 
@@ -128,7 +128,7 @@ const BookingDetailsScreen = ({ route }) => {
         {booking?.bookingStatus === 'pending'
           ?
           <>
-            <Information booking={booking} marginBottom={140} />
+            <Information booking={booking} marginBottom={hp(140)} />
             <View style={styles.bottomContainer}>
               <View style={{ width: '90%', marginBottom: 10 }}>
                 <Button label={'Accept offer'} onPress={handleAccept} />
@@ -139,13 +139,22 @@ const BookingDetailsScreen = ({ route }) => {
             </View>
           </>
           :
-          <TabView
-            navigationState={{ index, routes }}
-            renderScene={renderScene}
-            onIndexChange={setIndex}
-            initialLayout={{ width: layout.width }}
-            renderTabBar={renderTabBar}
-          />
+          <>
+            <TabView
+              navigationState={{ index, routes }}
+              renderScene={renderScene}
+              onIndexChange={setIndex}
+              initialLayout={{ width: layout.width }}
+              renderTabBar={renderTabBar}
+            />
+            <>
+              {!booking?.dispatchChauffeurAssigned && <View style={styles.bottomContainer}>
+                <View style={{ width: '90%', marginBottom: 10 }}>
+                  <Button label={'Assign chauffeur'} onPress={() => { }} />
+                </View>
+              </View>}
+            </>
+          </>
         }
       </AppLoading>
 

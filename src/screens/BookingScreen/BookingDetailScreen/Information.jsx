@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
+
 import BookingCard from '../BookingCard';
 import ImportantInformation from './ImportantInformation';
+import Warning from './Warning';
 
 const Information = ({ booking, marginBottom = 0 }) => {
   return (
@@ -13,6 +15,9 @@ const Information = ({ booking, marginBottom = 0 }) => {
           marginBottom: marginBottom
         }}
       >
+        {!booking?.dispatchChauffeurAssigned &&
+          <Warning title={'The chauffeur is not yet assigned.'} />
+        }
         <BookingCard
           booking={booking}
           status={booking?.dispatchStatus}
@@ -28,6 +33,11 @@ const Information = ({ booking, marginBottom = 0 }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  warningIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
   },
 });
 

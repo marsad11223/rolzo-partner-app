@@ -27,6 +27,7 @@ const editcircle = require('./edit_icon.png');
 const DeleteIcon = require('./icons/icon-delete.png');
 const companyIcon = require('./icon-company-black.png');
 const logoutIcon = require('./icons/logout_mobile.png');
+const warningIcon = require('./icons/icon-warning.png');
 
 const icons = {
   back,
@@ -57,7 +58,8 @@ const icons = {
   editcircle,
   DeleteIcon,
   companyIcon,
-  logoutIcon
+  logoutIcon,
+  warningIcon
 };
 
 export { icons };
