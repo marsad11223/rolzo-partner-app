@@ -7,10 +7,10 @@ import {
 } from 'react-native';
 import { icons } from '../../../assets/images';
 
-const Searchbar = ({ placeholder, value, handleSearch }) => {
+const Searchbar = ({ placeholder, value, handleSearch, style = {} }) => {
 
   return (
-    <View style={styles.searchInputContainer}>
+    <View style={[styles.searchInputContainer, style]}>
       <View style={styles.searchIconContainer}>
         <Image style={styles.search} source={icons.search} ></Image>
       </View>
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     height: 60,
     borderWidth: 0.5,
     borderColor: '#ccc',
-    borderRadius: 2,
     backgroundColor: '#fbfbfb',
     flexDirection: 'row',
     marginBottom: 16,
@@ -37,7 +36,8 @@ const styles = StyleSheet.create({
   searchInput: {
     height: 60,
     borderRadius: 10,
-    width: '85%'
+    width: '85%',
+    fontSize: 16
   },
 
   search: {

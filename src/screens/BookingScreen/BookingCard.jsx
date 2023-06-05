@@ -89,7 +89,7 @@ const BookingCard = ({ booking, status, showCta = true, extraDetails = false }) 
       <View style={styles.bookingCardBody}>
         {/* Items */}
         {extraDetails &&
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
             <LittleDetails Icon={icons.team} text={booking?.passengerInfo?.passenger} />
             <LittleDetails Icon={icons.portfolio} text={booking?.passengerInfo?.luggage} />
           </View>
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   bookingCardItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10
+    marginBottom: 20
   },
   bookingCardItemIcon: {
     height: 22,

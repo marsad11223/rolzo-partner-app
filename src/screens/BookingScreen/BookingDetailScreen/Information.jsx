@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import BookingCard from '../BookingCard';
 import ImportantInformation from './ImportantInformation';
@@ -7,6 +8,8 @@ import Warning from './Warning';
 import DriverInfo from './DriverInfo';
 
 const Information = ({ booking, marginBottom = 0 }) => {
+
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -17,16 +20,20 @@ const Information = ({ booking, marginBottom = 0 }) => {
           marginBottom: marginBottom
         }}
       >
-        {!(booking?.bookingStatus === 'pending') && !booking?.dispatchChauffeurAssigned &&
+        {(booking?.bookingStatus === 'pending' ||
+          booking?.bookingStatus === 'planned'
+        ) && !booking?.dispatchChauffeurAssigned &&
           <Warning title={'The chauffeur is not yet assigned.'} />
         }
         {
-          !(booking?.bookingStatus === 'pending') && booking?.driverTemp &&
+          (booking?.bookingStatus === 'pending' ||
+            booking?.bookingStatus === 'planned') && booking?.driverTemp &&
           <DriverInfo
             name={booking?.driverTemp?.fullName}
             phone={booking?.driverTemp?.phone}
             plateNo={booking?.driverTemp?.plateNo}
             vehicle={booking?.partnerVehicle}
+            onPress={() => navigation.navigate('ChauffeurSelectionScreen', booking)}
           />
         }
         <BookingCard

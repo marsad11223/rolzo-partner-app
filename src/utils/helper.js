@@ -17,9 +17,9 @@ export const fileToBase64 = async (uri) => {
   }
 };
 
-export const showToast = (text) => {
+export const showToast = (text, type = 'success') => {
   Toast.show({
-    type: 'success',
+    type: type,
     text1: text,
   });
 }

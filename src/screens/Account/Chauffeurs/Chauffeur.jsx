@@ -16,10 +16,11 @@ import AppLoading from '../../../components/Loading/AppLoading';
 const Chauffer = () => {
 
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [chauffeurs, setChauffeurs] = useState([]);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     isFocused && fetchChauffeurs();

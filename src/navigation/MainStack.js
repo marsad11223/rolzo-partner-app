@@ -14,7 +14,10 @@ import {
   AddChaufferDetails,
   EditCompanyDetails,
   AddVehicleDetails,
-  EditVehicleDetails
+  EditVehicleDetails,
+  VehicleSelectionScreen,
+  ChauffeurSelectionScreen,
+  ConfirmSelectionScreen
 }
   from '../screens';
 
@@ -80,6 +83,9 @@ const MainStack = () => {
       <Main.Screen name="EditCompanyDetails" component={EditCompanyDetails} />
       <Main.Screen name="AddVehicleDetails" component={AddVehicleDetails} />
       <Main.Screen name="EditVehicleDetails" component={EditVehicleDetails} />
+      <Main.Screen name="ChauffeurSelectionScreen" component={ChauffeurSelectionScreen} />
+      <Main.Screen name="VehicleSelectionScreen" component={VehicleSelectionScreen} />
+      <Main.Screen name="ConfirmSelectionScreen" component={ConfirmSelectionScreen} />
     </Main.Navigator>
   );
 };

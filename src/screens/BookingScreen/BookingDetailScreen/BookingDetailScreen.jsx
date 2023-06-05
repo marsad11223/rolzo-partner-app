@@ -148,7 +148,7 @@ const BookingDetailsScreen = ({ route }) => {
             <>
               {!booking?.dispatchChauffeurAssigned && <View style={styles.bottomContainer}>
                 <View style={{ width: '90%', marginBottom: 10 }}>
-                  <Button label={'Assign chauffeur'} onPress={() => { }} />
+                  <Button label={'Assign chauffeur'} onPress={() => { navigation.navigate('ChauffeurSelectionScreen', booking) }} />
                 </View>
               </View>}
             </>
@@ -165,9 +165,10 @@ const BookingDetailsScreen = ({ route }) => {
             declineReasons.map((reason) => {
               return (
                 <RadioButton
-                  selectedReason={declineReason}
-                  setSelectedReason={setDeclineReason}
+                  selected={declineReason}
+                  setSelected={setDeclineReason}
                   title={reason.label}
+                  value={reason.label}
                   key={reason.id}
                 />
               )

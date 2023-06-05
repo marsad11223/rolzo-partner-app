@@ -1,17 +1,23 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { icons } from '../../../assets/images';
+import RadioButton from '../../../components/Button/RadioButton';
 
 const EditComponent = ({
   title,
   subtitle,
   Icon,
   onPress,
+  style = {},
   borderLessImage = false,
-  roundeImage = false
+  roundeImage = false,
+  mode = 'edit',
+  selected = null,
+  value = null,
+  setSelected = () => { }
 }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View style={styles.leftContainer}>
 
         {borderLessImage ?
@@ -27,8 +33,21 @@ const EditComponent = ({
           {subtitle && <Text style={styles.phone}>{subtitle}</Text>}
         </View>
       </View>
-      <TouchableOpacity onPress={onPress}>
-        <Image style={styles.editIcon} source={icons.editcircle} />
+      <TouchableOpacity onPress={onPress} disabled={mode === 'confirm'}>
+        {
+          mode === 'edit' ?
+            <Image style={styles.editIcon} source={icons.editcircle} />
+            :
+            mode === 'select' ?
+              <RadioButton
+                selected={selected}
+                setSelected={setSelected}
+                value={value}
+                size={35}
+              /> :
+              mode === 'confirm' &&
+              <Image style={styles.editIcon} source={icons.checklist} />
+        }
       </TouchableOpacity>
     </View>
   );
@@ -65,9 +84,9 @@ const styles = StyleSheet.create({
     width: 22,
   },
   textContainer: {
-    marginLeft: 20,
+    marginLeft: 15,
     justifyContent: 'center',
-    maxWidth: '70%'
+    width: '63%',
   },
   name: {
     fontSize: 16,

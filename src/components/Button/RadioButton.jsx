@@ -1,17 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const RadioButton = ({ title = '', selectedReason, setSelectedReason = () => { } }) => {
+const RadioButton = ({ value = null, title = '', selected, setSelected = () => { }, size = 15 }) => {
   return (
     <TouchableOpacity
       style={styles.radioOption}
-      onPress={() => setSelectedReason(title)}
+      onPress={() => setSelected(value)}
     >
-      {selectedReason === title ? (
-        <Text style={styles.radioButton}>●</Text>
-      ) : (
-        <Text style={styles.radioButton}>○</Text>
-      )}
+      <View style={styles.radioContainer}>
+        {
+          selected === value &&
+          <View style={styles.radioSelected} />
+        }
+      </View>
       <Text style={styles.radioLabel}>{title}</Text>
     </TouchableOpacity>
   )
@@ -29,8 +30,20 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 10
   },
-  radioButton: {
-    fontSize: 20,
+  radioContainer: {
+    width: 18,
+    height: 18,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#0c0c0c',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  radioSelected: {
+    width: 8,
+    height: 8,
+    borderRadius: 10,
+    backgroundColor: '#0c0c0c',
   }
 });
 

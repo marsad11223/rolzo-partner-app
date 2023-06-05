@@ -7,7 +7,12 @@ import AccountScreen from './Account';
 import { EditCompanyDetails } from './Account/Company';
 import { EditChaufferDetails, AddChaufferDetails } from './Account/Chauffeurs';
 import { AddVehicleDetails, EditVehicleDetails } from './Account/Vehicles';
+import {
+  ChauffeurSelectionScreen,
+  VehicleSelectionScreen,
+  ConfirmSelectionScreen
 
+} from './BookingScreen/AssignRiderScreens';
 export {
   Login,
   OTPScreen,
@@ -19,5 +24,8 @@ export {
   AddChaufferDetails,
   EditCompanyDetails,
   AddVehicleDetails,
-  EditVehicleDetails
+  EditVehicleDetails,
+  ChauffeurSelectionScreen,
+  VehicleSelectionScreen,
+  ConfirmSelectionScreen
 };
