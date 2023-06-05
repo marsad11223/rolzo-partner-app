@@ -107,25 +107,25 @@ export function AuthProvider(props) {
   useEffect(() => {
     // To logout forcefully
     // AsyncStorage.removeItem('authToken');
-    checkSession();
+    restoreSession();
   }, []);
 
-  const checkSession = useCallback(async () => {
-    setLoading(true);
-    try {
-      setLoading(true);
-      const token = await getData('authToken');
-      if (token) {
-        restoreSession();
-      }
-      else {
-        logout()
-      }
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  }, []);
+  // const checkSession = async () => {
+  //   setLoading(true);
+  //   try {
+  //     setLoading(true);
+  //     const token = await getData('authToken');
+  //     if (token) {
+  //       restoreSession();
+  //     }
+  //     else {
+  //       logout()
+  //     }
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <AuthContext.Provider
