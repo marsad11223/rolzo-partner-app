@@ -53,7 +53,6 @@ const Completed = () => {
       const token = await getData('authToken');
       setLoading(true);
       const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/car/${token}`);
-      console.log(response.data?.data)
       setAllVehicle(() => {
         return response.data?.data.map((car) => {
           return {
