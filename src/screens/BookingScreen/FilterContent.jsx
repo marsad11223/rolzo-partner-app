@@ -14,13 +14,14 @@ const FilterContent = ({
   applyFilter,
   vehicles,
   selectedChauffeur,
-  chauffeurs
-
+  chauffeurs,
+  selectedFrom,
+  selectedTo
 }) => {
   return (
     <View style={styles.container}>
-      <CalendarInput placeholder={'From'} onDateSelect={fromSelect} />
-      <CalendarInput placeholder={'To'} onDateSelect={toSelect} />
+      <CalendarInput placeholder={'From'} onDateSelect={fromSelect} value={selectedFrom} />
+      <CalendarInput placeholder={'To'} onDateSelect={toSelect} value={selectedTo} />
       <SelectionComponent
         options={vehicles}
         selectedValue={selectedVehicle}

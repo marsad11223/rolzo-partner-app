@@ -3,11 +3,12 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-nati
 import { Calendar } from 'react-native-calendars';
 import { icons } from '../../assets/images';
 import moment from 'moment'
-const CalendarInput = ({ placeholder, onDateSelect }) => {
+const CalendarInput = ({ placeholder, onDateSelect, value }) => {
+
+  const inputRef = useRef(null);
 
   const [showCalendar, setShowCalendar] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
-  const inputRef = useRef(null);
+  const [selectedDate, setSelectedDate] = useState(value ? moment(value).format('ddd, Do MMM YYYY') : '');
 
   const handleToggleCalendar = () => {
     setShowCalendar(!showCalendar);
