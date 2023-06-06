@@ -15,7 +15,7 @@ import BookingGold from '../../assets/images/icons/icon-bookings-gold.png';
 import Earning from '../../assets/images/icons/icon-earnings.png';
 import ChauffeurGold from '../../assets/images/icons/icon-chauffeur-gold.png';
 import VehicleGold from '../../assets/images/icons/icon-vehicle-gold.png';
-import { getData, setData, removeData } from '../../utils/storage';
+import { getData } from '../../utils/storage';
 
 const HomeScreen = () => {
   const [service, setService] = useState(0);
@@ -70,12 +70,16 @@ const HomeScreen = () => {
             Icon={BookingGold}
             amount={userData?.todaysBookings?.length}
             amountSubtitle={'Bookings'}
+            bookings={userData?.todaysBookings ?? []}
+            status={'pending'}
           />
           <Card
             title={'New offers'}
             Icon={BookingGold}
             amount={userData?.newOffers?.length}
             amountSubtitle={'New offers'}
+            bookings={userData?.newOffers ?? []}
+            status={'pending'}
           />
           <Card
             title={'Earnings'}

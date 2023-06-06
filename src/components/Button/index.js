@@ -42,6 +42,6 @@ const StyledButton = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
   padding: 16px;
-  height: 50px;
+  height: 40px;
   border-radius: 2px;
 `;

@@ -1,7 +1,33 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
+import { Button } from '../../components';
+import { useNavigation } from '@react-navigation/native';
 
-const Card = ({ title, Icon, amount, amountSubtitle, transactions = [] }) => {
+import moment from 'moment';
+
+const Card = ({ title, Icon, amount, amountSubtitle, transactions = [], bookings = [], status = '' }) => {
+
+  const navigation = useNavigation();
+
+  const BookingCard = ({ date, type, name, price, onPress = () => { } }) => {
+    return (
+      <View style={styles.bookingCardContainer}>
+        <View style={styles.bookingCardInfo}>
+          <Text style={styles.bookingCardDate}>{date}</Text>
+          <Text style={styles.bookingCardType}>{type}</Text>
+          <Text style={styles.bookingCardVehicle}>{name}</Text>
+        </View>
+
+        <View style={styles.bookingCardAmount}>
+          <Text style={styles.bookingCardAmountText}>{price}</Text>
+          <View style={styles.bookingCardButton}>
+            <Button label={'View'} onPress={onPress} />
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.cardTitle}>{title}</Text>
@@ -14,6 +40,22 @@ const Card = ({ title, Icon, amount, amountSubtitle, transactions = [] }) => {
           <Text style={styles.amountSubtitle}>{amountSubtitle}</Text>
         </View>
       </View>
+
+      {bookings?.map((booking) => {
+        return (
+          <BookingCard
+            date={moment(booking.date)?.format('ddd D MM YY, HH:mm')}
+            type={booking?.type}
+            name={booking?.modelName}
+            price={`${booking?.price} ${booking?.currency}`}
+            key={booking._id}
+            onPress={() => {
+              // navigation.navigate('BookingDetails', { ...booking, bookingStatus: status })
+            }}
+          />
+        );
+      })}
+
       {transactions?.map((transaction, index) => {
         return (
           <View style={styles.transferAmount} key={index}>
@@ -58,6 +100,42 @@ const styles = StyleSheet.create({
   amountSubtitle: {
     color: '#8B959E',
     fontSize: 14,
+  },
+  bookingCardContainer: {
+    backgroundColor: '#8B959E1A',
+    padding: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 15,
+  },
+  bookingCardInfo: {
+    width: '60%',
+  },
+  bookingCardDate: {
+    fontSize: 18,
+    fontWeight: 400,
+    marginBottom: 10,
+  },
+  bookingCardType: {
+    fontSize: 16,
+    color: '#8b959e',
+  },
+  bookingCardVehicle: {
+    fontSize: 16,
+    color: '#8b959e',
+  },
+  bookingCardAmount: {
+    width: '40%',
+    alignItems: 'flex-end',
+  },
+  bookingCardAmountText: {
+    fontSize: 16,
+    fontWeight: '400',
+    marginBottom: 10,
+  },
+  bookingCardButton: {
+    width: '80%',
   },
   transferAmount: {
     backgroundColor: '#8B959E1A',
