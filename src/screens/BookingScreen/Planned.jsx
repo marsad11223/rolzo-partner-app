@@ -11,21 +11,21 @@ import FilterContent from './FilterContent';
 import BookingCard from './BookingCard';
 import AppLoading from '../../components/Loading/AppLoading';
 import { getData } from '../../utils/storage';
-import { convertDateFormat, createQueryString, encodeURLString } from '../../utils/helper';
+import { convertDateFormat, createQueryString } from '../../utils/helper';
 
 const Planned = () => {
 
   const isFocused = useIsFocused();
   const [search, setSearch] = useState('');
   const [plannedBookings, setPlannedBookings] = useState(null)
-  const [filterVisiblity, setFilterVisiblity] = useState(false)
+  const [filterVisiblity, setFilterVisiblity] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [allVehicle, setAllVehicle] = useState([]);
   const [allChauffeur, setAllChauffeur] = useState([]);
   const [vehicle, setVehicle] = useState('');
   const [chauffeur, setChauffeur] = useState('');
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     isFocused && getPlannedBooking();
@@ -93,7 +93,6 @@ const Planned = () => {
       const token = await getData('authToken');
       setLoading(true);
       const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/planned?page=1&limit=10&${filterQuery}`);
-      console.log('res', response?.data?.data);
       setPlannedBookings(response?.data?.data);
       setLoading(false);
     } catch (error) {

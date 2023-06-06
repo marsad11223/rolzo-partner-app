@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     backgroundColor: 'white',
-    borderRadius: 8,
     padding: 16,
     width: windowWidth,
     height: windowHeight,

@@ -11,19 +11,26 @@ import FilterContent from './FilterContent';
 import { getData } from '../../utils/storage';
 import BookingCard from './BookingCard';
 import AppLoading from '../../components/Loading/AppLoading';
+import { convertDateFormat, createQueryString } from '../../utils/helper';
 
 const Completed = () => {
 
   const isFocused = useIsFocused()
   const [search, setSearch] = useState('');
-  const [completedBookings, setCompletedBookings] = useState(null)
-  const [filterVisiblity, setFilterVisiblity] = useState(false)
+  const [completedBookings, setCompletedBookings] = useState(null);
+  const [filterVisiblity, setFilterVisiblity] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [allVehicle, setAllVehicle] = useState([]);
+  const [allChauffeur, setAllChauffeur] = useState([]);
   const [vehicle, setVehicle] = useState('');
   const [chauffeur, setChauffeur] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
 
   useEffect(() => {
     isFocused && getCompletedBooking();
+    isFocused && getCars();
+    isFocused && getChauffeur();
     return () => {
     }
   }, [isFocused])
@@ -41,17 +48,70 @@ const Completed = () => {
     }
   }
 
-  const searchBooking = async (search) => {
+  const getCars = async () => {
     try {
       const token = await getData('authToken');
       setLoading(true);
-      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/completed?page=1&limit=10&filter[number,like]=${search}`);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/car/${token}`);
+      console.log(response.data?.data)
+      setAllVehicle(() => {
+        return response.data?.data.map((car) => {
+          return {
+            label: car?.make?.label,
+            value: car?.make?.label
+          }
+        })
+      });
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
+  const getChauffeur = async () => {
+    try {
+      const token = await getData('authToken');
+      setLoading(true);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/chauffeur/${token}`);
+      setAllChauffeur(() => {
+        return response.data?.data.map((chauffeur) => {
+          return {
+            label: chauffeur?.firstName + ' ' + chauffeur?.lastName,
+            value: chauffeur?.firstName + ' ' + chauffeur?.lastName
+          }
+        })
+      });
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
+  const getFilteredData = async (search) => {
+    const filterQuery = createQueryString(search, from, to, vehicle, chauffeur);
+
+    try {
+      const token = await getData('authToken');
+      setLoading(true);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/completed?page=1&limit=10&${filterQuery}`);
       setCompletedBookings(response?.data?.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);
     }
+  }
+
+  const clearFilter = () => {
+    setTo('');
+    setFrom('');
+    setChauffeur('');
+    setVehicle('');
+    setSearch('');
+    setFilterVisiblity(false);
+    getCompletedBooking();
   }
 
   const renderItem = ({ item }) => {
@@ -66,8 +126,8 @@ const Completed = () => {
         placeholder={'Booking number'}
         value={search}
         handleSearch={e => {
-          searchBooking(e);
           setSearch(e);
+          getFilteredData(e);
         }}
         handleFilter={() => setFilterVisiblity(true)}
       />
@@ -97,14 +157,19 @@ const Completed = () => {
       >
 
         <FilterContent
-          fromSelect={() => { }}
-          toSelect={() => { }}
-          vehicles={[{ label: '1', value: 'all 1' }, { label: '2', value: 'all 2' }]}
-          chauffeurs={[{ label: '1', value: 'all 1' }]}
+          fromSelect={(e) => { setFrom(convertDateFormat(e)) }}
+          toSelect={(e) => { setTo(convertDateFormat(e)) }}
+          selectedFrom={to}
+          selectedTo={from}
+          vehicles={allVehicle}
+          chauffeurs={allChauffeur}
           setVehicle={(e) => { setVehicle(e) }}
           setChauffeur={(e) => { setChauffeur(e) }}
-          clearFilter={() => { setFilterVisiblity(false) }}
-          applyFilter={() => { setFilterVisiblity(false) }}
+          clearFilter={clearFilter}
+          applyFilter={() => {
+            getFilteredData(search)
+            setFilterVisiblity(false)
+          }}
           selectedVehicle={vehicle}
           selectedChauffeur={chauffeur}
         />
