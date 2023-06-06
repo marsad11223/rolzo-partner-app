@@ -28,31 +28,18 @@ const NewOffers = () => {
     }
   }, [isFocused])
 
-  const getCars = async () => {
+  const searchBooking = async (search) => {
     try {
       const token = await getData('authToken');
       setLoading(true);
-      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/car/${token}`);
-      setVehicle(response.data?.data);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/new-booking?page=1&limit=10&filter[number,like]=${search}`);
+      setNewBookings(response?.data?.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);
     }
   }
-  const getChauffeur = async () => {
-    try {
-      const token = await getData('authToken');
-      setLoading(true);
-      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/chauffeur/${token}`);
-      setChauffeur(response.data?.data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  }
-
   const getNewBooking = async () => {
     try {
       const token = await getData('authToken');
@@ -76,7 +63,10 @@ const NewOffers = () => {
       <Searchbar
         placeholder={'Offer number'}
         value={search}
-        handleSearch={e => setSearch(e)}
+        handleSearch={e => {
+          searchBooking(e);
+          setSearch(e);
+        }}
         handleFilter={() => setFilterVisiblity(true)}
       />
 

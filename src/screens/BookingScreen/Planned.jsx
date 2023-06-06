@@ -66,20 +66,34 @@ const Planned = () => {
     }
   }
 
+  const searchBooking = async (search) => {
+    try {
+      const token = await getData('authToken');
+      setLoading(true);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/planned?page=1&limit=10&filter[number,like]=${search}`);
+      setPlannedBookings(response?.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
   const renderItem = ({ item }) => {
     return (
       <BookingCard booking={item} status={'planned'} />
     )
   }
 
-  console.log(plannedBookings?.length);
-
   return (
     <View style={styles.container}>
       <Searchbar
         placeholder={'Booking number'}
         value={search}
-        handleSearch={e => setSearch(e)}
+        handleSearch={e => {
+          searchBooking(e);
+          setSearch(e);
+        }}
         handleFilter={() => setFilterVisiblity(true)}
       />
 

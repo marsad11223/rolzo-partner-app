@@ -28,24 +28,12 @@ const Completed = () => {
     }
   }, [isFocused])
 
-  const getCars = async () => {
+  const getCompletedBooking = async () => {
     try {
       const token = await getData('authToken');
       setLoading(true);
-      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/car/${token}`);
-      setVehicle(response.data?.data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  }
-  const getChauffeur = async () => {
-    try {
-      const token = await getData('authToken');
-      setLoading(true);
-      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/chauffeur/${token}`);
-      setChauffeur(response.data?.data);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/completed?page=1&limit=10`);
+      setCompletedBookings(response.data.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -53,12 +41,12 @@ const Completed = () => {
     }
   }
 
-  const getCompletedBooking = async () => {
+  const searchBooking = async (search) => {
     try {
       const token = await getData('authToken');
       setLoading(true);
-      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/completed?page=1&limit=10`);
-      setCompletedBookings(response.data.data);
+      const response = await axios.get(`https://staging.rolzo.com/api/api/v1/external/partnerToken/${token}/completed?page=1&limit=10&filter[number,like]=${search}`);
+      setCompletedBookings(response?.data?.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -77,7 +65,10 @@ const Completed = () => {
       <Searchbar
         placeholder={'Booking number'}
         value={search}
-        handleSearch={e => setSearch(e)}
+        handleSearch={e => {
+          searchBooking(e);
+          setSearch(e);
+        }}
         handleFilter={() => setFilterVisiblity(true)}
       />
 
