@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import OTPTextView from 'react-native-otp-textinput';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
@@ -9,7 +9,6 @@ import { AuthContext } from '../../providers/AuthProvider';
 
 const OTPScreen = ({ route, navigation }) => {
   const { phone, sid } = route.params;
-
   const [currentSid, setCurrentSid] = useState(sid);
 
   return (
@@ -48,7 +47,8 @@ const OTPScreen = ({ route, navigation }) => {
                       onPress={handleSubmit}
                       style={styles.submitButton}
                     >
-                      <Text style={styles.submitButtonText}>Submit</Text>
+                      {loading ? <ActivityIndicator size={'small'} loading={loading} color={'#fbfbfb'} /> :
+                        <Text style={styles.submitButtonText}>Submit</Text>}
                     </TouchableOpacity>
                   </View>
                 )}
