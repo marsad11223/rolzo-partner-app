@@ -3,11 +3,11 @@ import React from 'react';
 import { useColorScheme, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 import { AuthProvider } from './src/providers/AuthProvider';
 import RootStack from './src/navigation/RootStack';
-import { setData } from './src/utils/storage';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -15,8 +15,8 @@ export default function App() {
   const backgroundStyle = {
     backgroundColor: 'white',
     flex: 1,
-    paddingBottom: Platform.OS === 'ios' ? getStatusBarHeight() / 4 : 0,
-    paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() : 0,
+    paddingBottom: Platform.OS === 'ios' ? getStatusBarHeight() : 0,
+    paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() * 2.5 : 0,
   };
 
   return (

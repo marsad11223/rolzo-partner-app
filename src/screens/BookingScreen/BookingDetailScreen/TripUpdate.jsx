@@ -45,6 +45,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     position: 'relative',
     marginBottom: 40,
+    borderLeftWidth: 1.5,
+    borderLeftColor: '#fbfbfb'
   },
   dotView: {
     position: 'absolute',

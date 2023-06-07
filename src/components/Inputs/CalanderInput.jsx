@@ -3,6 +3,7 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-nati
 import { Calendar } from 'react-native-calendars';
 import { icons } from '../../assets/images';
 import moment from 'moment'
+
 const CalendarInput = ({ placeholder, onDateSelect, value }) => {
 
   const inputRef = useRef(null);

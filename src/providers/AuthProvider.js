@@ -2,7 +2,6 @@ import React, { createContext, useCallback, useEffect, useState } from 'react';
 import Auth from '../services/Auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
-import messaging from '@react-native-firebase/messaging';
 import { firebase } from '../../firebaseConfig';
 import * as Device from 'expo-device';
 import { getExpoPushTokenAsync } from 'expo-notifications';
