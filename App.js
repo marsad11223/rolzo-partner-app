@@ -1,16 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useColorScheme, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
 import { AuthProvider } from './src/providers/AuthProvider';
 import RootStack from './src/navigation/RootStack';
 
 export default function App() {
+
   const isDarkMode = useColorScheme() === 'dark';
+
+  const [fontsLoaded] = useFonts({
+    'AvenirNextLTPro-Regular': require('./src/assets/fonts/AvenirNextLTPro-Regular.otf'),
+    'AvenirNextLTPro-Bold': require('./src/assets/fonts/AvenirNextLTPro-Bold.otf'),
+    'BentonSans-Bold': require('./src/assets/fonts/BentonSans-Bold.otf'),
+    'BentonSans-Medium': require('./src/assets/fonts/BentonSans-Medium.otf'),
+    'BentonSans-Regular': require('./src/assets/fonts/BentonSans-Regular.otf'),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   const backgroundStyle = {
     backgroundColor: 'white',

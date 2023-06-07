@@ -18,12 +18,15 @@ import { getExampleNumber } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/examples.mobile.json';
 import styled from 'styled-components/native';
 import axios from 'axios';
-
 import DeviceCountry, {
   TYPE_ANY,
   TYPE_TELEPHONY,
   TYPE_CONFIGURATION,
 } from 'react-native-device-country';
+
+import {
+  AvenirNextLTProRegular
+} from '../../utils/fonts'
 
 const LoginSchema = Yup.object().shape({
   phone: Yup.number().required('Required'),
@@ -50,7 +53,7 @@ const Login = ({ navigation }) => {
     if (userNotFound) {
       setTimeout(() => {
         setUserNotFound(false);
-        // Linking.openURL(`https://partner.rolzo.com/auth/register`);
+        Linking.openURL(`https://partner.rolzo.com/auth/register`);
       }, 3500);
     }
   }, [userNotFound]);
@@ -178,16 +181,16 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginBottom: 8,
     color: Colors.black,
-    fontFamily: 'AvenirNextLTPro-Regular',
+    fontFamily: AvenirNextLTProRegular,
   },
   subtitle: {
     color: Colors.secondary,
-    fontFamily: 'AvenirNextLTPro-Regular',
+    fontFamily: AvenirNextLTProRegular,
     fontSize: 16,
   },
   userNotFound: {
     color: Colors.secondary,
-    fontFamily: 'AvenirNextLTPro-Regular',
+    fontFamily: AvenirNextLTProRegular,
     fontSize: 16,
     marginTop: 15,
     color: 'red',
@@ -200,7 +203,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 4,
     color: Colors.secondary,
-    fontFamily: 'AvenirNextLTPro-Regular',
+    fontFamily: AvenirNextLTProRegular,
   },
   error: {
     color: 'red',

@@ -6,6 +6,7 @@ import OTPTextView from 'react-native-otp-textinput';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { Colors } from '../../theme/variables';
 import { AuthContext } from '../../providers/AuthProvider';
+import { AvenirNextLTProRegular } from '../../utils/fonts';
 
 const OTPScreen = ({ route, navigation }) => {
   const { phone, sid } = route.params;
@@ -100,11 +101,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     marginBottom: 8,
-    fontFamily: 'AvenirNextLTPro-Regular',
+    fontFamily: AvenirNextLTProRegular,
   },
   subtitle: {
     color: Colors.secondary,
-    fontFamily: 'AvenirNextLTPro-Regular',
+    fontFamily: AvenirNextLTProRegular,
     fontSize: 16,
     lineHeight: 24,
   },
