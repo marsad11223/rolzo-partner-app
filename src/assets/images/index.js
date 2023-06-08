@@ -28,6 +28,7 @@ const DeleteIcon = require('./icons/icon-delete.png');
 const companyIcon = require('./icon-company-black.png');
 const logoutIcon = require('./icons/logout_mobile.png');
 const warningIcon = require('./icons/icon-warning.png');
+const downIcon = require('./icons/arrow-down.png');
 
 const icons = {
   back,
@@ -59,7 +60,8 @@ const icons = {
   DeleteIcon,
   companyIcon,
   logoutIcon,
-  warningIcon
+  warningIcon,
+  downIcon
 };
 
 export { icons };
