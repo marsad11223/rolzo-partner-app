@@ -28,6 +28,8 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        activeTintColor: 'black',
+        inactiveTintColor: '#8b959e',
         tabBarIcon: ({ focused, color, size }) => {
           let IconName;
 
@@ -52,10 +54,7 @@ const Tabs = () => {
         headerShown: false,
         tabBarStyle: { paddingBottom: 10, height: 60 },
       })}
-      tabBarOptions={{
-        activeTintColor: 'black',
-        inactiveTintColor: '#8b959e',
-      }}
+     
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Bookings" component={BookingScreen} />

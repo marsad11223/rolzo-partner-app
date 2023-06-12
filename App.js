@@ -44,7 +44,8 @@ export default function App() {
     <NavigationContainer>
       <SafeAreaView style={{ flex: 1, backgroundColor: 'red' }}>
         <View style={{ zIndex: 999, }}>
-          <Toast position="top" ref={ref => Toast.setRef(ref)} visibilityTime={2000} />
+
+          <Toast position="top" refs={(refs) => Toast.setRef(refs)} visibilityTime={2000} />
         </View>
         <AuthProvider>
           <View style={backgroundStyle}>

@@ -68,19 +68,24 @@ export function AuthProvider(props) {
 
   const restoreSession = useCallback(async () => {
     try {
-      // const fcmToken = await messaging().getToken();
       const token = await getData('authToken');
       const isTokenValid = await validateToken(token);
       if (isTokenValid) {
         setToken(token);
         setIsSessionValid(true);
-      } else throw Error('Session expired');
+      } else {
+        throw new Error('Session expired');
+      }
     } catch (error) {
+      console.log(error.message);
       setToken(null);
       setIsSessionValid(false);
-      SplashScreen.hide();
+      if (SplashScreen && SplashScreen.hide) {
+        SplashScreen.hide();
+      }
     }
   }, []);
+  
 
   const logout = useCallback(() => {
     try {
