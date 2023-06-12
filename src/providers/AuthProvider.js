@@ -8,7 +8,7 @@ import { getExpoPushTokenAsync } from 'expo-notifications';
 import { getData, removeData, setData } from '../utils/storage';
 
 const options = {
-  projectId: '0b6cc925-c0a5-4382-b757-f4799ce899a1',
+  projectId: 'c782bfd7-9c84-4c9b-bd7c-08599f56fda2',
 };
 
 export const AuthContext = createContext();
@@ -85,7 +85,7 @@ export function AuthProvider(props) {
       }
     }
   }, []);
-  
+
 
   const logout = useCallback(() => {
     try {
