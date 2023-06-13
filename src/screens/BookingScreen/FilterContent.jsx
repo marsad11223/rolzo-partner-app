@@ -36,7 +36,7 @@ const FilterContent = ({
       />
 
       <View style={styles.bottomContainer}>
-        <Text style={{ color: Colors.primary, fontSize: 17, fontWeight: 900 }} onPress={clearFilter}>Clear All</Text>
+        <Text style={{ color: Colors.primary, fontSize: 17, fontWeight: 900,marginLeft:10 }} onPress={clearFilter}>Clear All</Text>
         <View style={{ width: '40%' }}>
           <Button label={'Apply'} onPress={applyFilter} />
         </View>
@@ -47,7 +47,7 @@ const FilterContent = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 60,
+    marginTop: 20,
     position: 'relative',
     flex: 1,
   },

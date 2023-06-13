@@ -45,7 +45,7 @@ const AccountScreen = () => {
       activeColor="#000"
       renderLabel={({ route, focused, color }) => {
         return (
-          <Text style={{ color, margin: 0, fontSize: 16 }} numberOfLines={1}>
+          <Text style={{ color, margin: 0, fontSize: 16 }} numberOfLines={1} ellipsizeMode={'clip'}>
             {route.title}
           </Text>
         );
