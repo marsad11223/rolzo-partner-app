@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useCallback } from 'react';
-import { useColorScheme, View } from 'react-native';
+import { useColorScheme, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,6 +23,12 @@ export default function App() {
     'BentonSans-Regular': require('./src/assets/fonts/BentonSans-Regular.otf'),
   });
 
+  Text.defaultProps = {
+    style: {
+      fontFamily: 'AvenirNextLTPro-Regular',
+    },
+  };
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -39,6 +45,7 @@ export default function App() {
     paddingBottom: Platform.OS === 'ios' ? getStatusBarHeight() : 0,
     paddingTop: Platform.OS === 'ios' ? getStatusBarHeight() * 2.5 : 0,
   };
+  onLayoutRootView();
 
   return (
     <NavigationContainer>

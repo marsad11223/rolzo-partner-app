@@ -40,10 +40,10 @@ const BookingScreen = () => {
       renderLabel={({ route, focused, color }) => {
         return (
           <View >
-          <Text style={{ color, margin: 0, fontSize: 16 }} numberOfLines={1} ellipsizeMode={'clip'} >
-            {route.title}
-          </Text>
-        </View >
+            <Text style={{ color, margin: 0, fontSize: 16 }} numberOfLines={1} ellipsizeMode={'clip'}>
+              {route.title}
+            </Text>
+          </View >
         );
       }}
     />
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 34,
   },
- 
+
 });
 
 export default BookingScreen;
