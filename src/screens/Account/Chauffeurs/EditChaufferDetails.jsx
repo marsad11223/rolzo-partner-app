@@ -155,7 +155,7 @@ const EditChaufferDetails = ({ route: { params } }) => {
         </View>
 
         <View style={styles.bottomContainer}>
-          <View style={styles.buttonContainer}>
+          <View style={{width:"90%"}}>
             <Button label={'Save'} onPress={handleSubmit} />
           </View>
         </View>
