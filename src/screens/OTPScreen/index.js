@@ -43,6 +43,8 @@ const OTPScreen = ({ route, navigation }) => {
                       keyboardType="numeric"
                       values={values}
                       tintColor={Colors.primary}
+                      //AutoFocus
+                      autoFocus={true}
                     />
                     <TouchableOpacity
                       onPress={handleSubmit}
