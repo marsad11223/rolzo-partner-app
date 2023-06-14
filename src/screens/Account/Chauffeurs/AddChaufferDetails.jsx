@@ -80,8 +80,9 @@ const AddChaufferDetails = () => {
   return (
     <View style={styles.container}>
       <Header title={'Add a chauffeur'} />
-      <ScrollView>
+      
       <AppLoading loading={loading}>
+      <ScrollView>
         <View style={{
           padding: 20,
         }}>
@@ -158,8 +159,9 @@ const AddChaufferDetails = () => {
             <Button label={'Save'} onPress={handleSubmit} />
           </View>
         </View>
+        </ScrollView>
       </AppLoading>
-      </ScrollView>
+     
     </View>
   );
 };
@@ -229,7 +231,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopColor: 'rgba(139,149,158,.25)',
     borderTopWidth: 1.5,
-    paddingTop: 20
+    paddingTop: 10
   },
   selectedImage: {
     width: 125,

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, StyleSheet, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TextInput, TouchableOpacity,ScrollView } from 'react-native';
 import { getExampleNumber } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/examples.mobile.json';
 import * as ImagePicker from 'expo-image-picker';
@@ -105,6 +105,7 @@ const EditChaufferDetails = ({ route: { params } }) => {
       />
 
       <AppLoading loading={loading}>
+      <ScrollView>
         <View style={styles.contentContainer}>
           <View style={styles.profileContainer}>
             {!image ? (
@@ -159,6 +160,7 @@ const EditChaufferDetails = ({ route: { params } }) => {
             <Button label={'Save'} onPress={handleSubmit} />
           </View>
         </View>
+        </ScrollView>
       </AppLoading>
 
       <AppPopup visible={deleteModal} onClose={() => { setDeleteModal(false) }}>
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   bottomContainer: {
-    position: 'absolute',
+    position: 'relative',
     bottom: 15,
     flexDirection: 'row',
     justifyContent: 'center',
