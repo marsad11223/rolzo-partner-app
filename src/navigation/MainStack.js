@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
-import { Image } from 'react-native';
+import React, { useContext, useEffect,useState } from 'react';
+import {View,Text, Image,StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import AppPopup from '../components/Modal/AppPopup';
 import { AuthContext } from '../providers/AuthProvider';
 import { icons } from '../assets/images';
+import { Button } from '../components';
 import {
   BookingScreen,
   HomeScreen,
@@ -20,12 +21,16 @@ import {
   ConfirmSelectionScreen
 }
   from '../screens';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import LogoutModal from '../components/Modal/LogoutModal';
 
 const Tab = createBottomTabNavigator();
 const Main = createStackNavigator();
 
 const Tabs = () => {
+ 
   return (
+    
     <Tab.Navigator
       screenOptions={({ route }) => ({
         activeTintColor: 'black',
@@ -59,18 +64,15 @@ const Tabs = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Bookings" component={BookingScreen} />
       <Tab.Screen name="Accounts" component={AccountScreen} />
-      <Tab.Screen name="Logout"
-        component={() => {
-          const { logout } = useContext(AuthContext);
-          useEffect(() => {
-            logout();
-          }, []);
-          return null;
-        }}
+      <Tab.Screen name="Logout"   component={LogoutModal}
+        
       />
     </Tab.Navigator>
+    
+    
   );
 }
+
 
 const MainStack = () => {
   return (

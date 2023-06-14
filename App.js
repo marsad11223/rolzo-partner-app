@@ -7,8 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-
-import { AuthProvider } from './src/providers/AuthProvider';
+import LogoutModal from './src/components/Modal/LogoutModal';
+import { AuthContext, AuthProvider } from './src/providers/AuthProvider';
 import RootStack from './src/navigation/RootStack';
 
 export default function App() {
@@ -63,7 +63,11 @@ export default function App() {
             <RootStack></RootStack>
           </View>
         </AuthProvider>
+       
       </SafeAreaView>
+      <AuthContext.Provider>
+        <LogoutModal></LogoutModal>
+      </AuthContext.Provider>
     </NavigationContainer>
   );
 }

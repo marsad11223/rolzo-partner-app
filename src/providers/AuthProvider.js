@@ -17,6 +17,7 @@ export function AuthProvider(props) {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isSessionValid, setIsSessionValid] = useState(false);
+  const [LogouttModal,setlogouttModal]=useState(false);
 
   const requestOneTimePassword = useCallback(async (phone) => {
     setLoading(true);
@@ -141,6 +142,9 @@ export function AuthProvider(props) {
         login,
         logout,
         checkUserAvailable,
+        LogouttModal,
+        setlogouttModal,
+
       }}
     >
       {props.children}

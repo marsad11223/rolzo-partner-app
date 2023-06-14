@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Modal, Text, TouchableOpacity, Image } from 'react-native';
 import { AvenirNextLTProRegular } from '../../utils/fonts';
 import { icons } from '../../assets/images';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SelectionComponent = ({ options, selectedValue, onValueChange, style = {} }) => {
   const [visible, setVisible] = useState(false);
@@ -46,6 +47,7 @@ const SelectionComponent = ({ options, selectedValue, onValueChange, style = {} 
             </TouchableOpacity>
 
             {options?.map((option, index) => (
+              <ScrollView>
               <TouchableOpacity
                 key={index}
                 activeOpacity={0.5}
@@ -55,9 +57,12 @@ const SelectionComponent = ({ options, selectedValue, onValueChange, style = {} 
                   {option.label}
                 </Text>
               </TouchableOpacity>
+              </ScrollView>
             ))}
           </View>
         </View>
+
+        
       </Modal>
     </View>
   );

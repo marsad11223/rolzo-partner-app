@@ -14,6 +14,7 @@ import { icons } from '../../../assets/images';
 import { Input } from '../../Login';
 import { getData } from '../../../utils/storage';
 import { fileToBase64, showToast } from '../../../utils/helper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const AddChaufferDetails = () => {
 
@@ -79,6 +80,7 @@ const AddChaufferDetails = () => {
   return (
     <View style={styles.container}>
       <Header title={'Add a chauffeur'} />
+      <ScrollView>
       <AppLoading loading={loading}>
         <View style={{
           padding: 20,
@@ -157,6 +159,7 @@ const AddChaufferDetails = () => {
           </View>
         </View>
       </AppLoading>
+      </ScrollView>
     </View>
   );
 };
