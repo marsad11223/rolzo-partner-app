@@ -62,10 +62,20 @@ export default function App() {
             />
             <RootStack></RootStack>
           </View>
+          <AuthContext.Consumer>
+            {({ logoutModal, setLogoutModal, logout }) => {
+              return (
+                <LogoutModal
+                  visible={logoutModal}
+                  onClose={() => setLogoutModal(false)}
+                  onPress={logout} />
+              )
+            }}
+          </AuthContext.Consumer>
         </AuthProvider>
-       
+
       </SafeAreaView>
-     
+
     </NavigationContainer>
   );
 }

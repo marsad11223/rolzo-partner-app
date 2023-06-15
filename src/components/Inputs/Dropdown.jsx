@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { AvenirNextLTProRegular } from '../../utils/fonts';
 import Modal from 'react-native-modal';
 import { icons } from '../../assets/images';
-import { ScrollView } from 'react-native-gesture-handler';
 
-const SelectionComponent = ({ options, selectedValue, onValueChange,placeholder, style = {} }) => {
+
+const SelectionComponent = ({ options, selectedValue, onValueChange, placeholder, style = {} }) => {
   const [visible, setVisible] = useState(false);
 
   const handleValueChange = (value) => {
@@ -14,7 +14,6 @@ const SelectionComponent = ({ options, selectedValue, onValueChange,placeholder,
     }
     setVisible(false);
   };
-
   return (
     <View style={[styles.border, style]}>
 
@@ -29,16 +28,17 @@ const SelectionComponent = ({ options, selectedValue, onValueChange,placeholder,
       </TouchableOpacity>
 
       <Modal
-         isVisible={visible}
-         onBackdropPress={() => setVisible(true)}
-         animationIn="fadeIn"
-         animationOut="fadeOut"
-         backdropOpacity={0.5}
+        isVisible={visible}
+        onBackdropPress={() => setVisible(false)}
+        animationIn="fadeIn"
+        animationOut="fadeOut"
+        backdropOpacity={0.5}
       >
         <View style={styles.modalContainer}>
           <View style={styles.contentContainer}>
             <TouchableOpacity
-              activeOpacity={0.5}
+              activeOpacity={1}
+
               onPress={() => handleValueChange('')}
               style={{
                 marginBottom: 15
@@ -47,25 +47,28 @@ const SelectionComponent = ({ options, selectedValue, onValueChange,placeholder,
               <Text style={styles.placeholder}>
                 Select
               </Text>
+
             </TouchableOpacity>
 
             {options?.map((option, index) => (
               <ScrollView>
-              <TouchableOpacity
-                key={index}
-                activeOpacity={0.5}
-                onPress={() => handleValueChange(option?.value)}
-              >
-                <Text style={styles.selectedValue}>
-                  {option.label}
-                </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  key={index}
+                  activeOpacity={0.5}
+                  onPress={() => handleValueChange(option?.value)}
+                  style={{ flex: 1 }}
+                >
+                  <Text style={styles.selectedValue}>
+                    {option.label}
+                  </Text>
+                </TouchableOpacity>
               </ScrollView>
             ))}
           </View>
+
         </View>
       </Modal>
-    </View>
+    </View >
   );
 };
 
@@ -96,22 +99,20 @@ const styles = StyleSheet.create({
     fontFamily: AvenirNextLTProRegular,
   },
   modalContainer: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   contentContainer: {
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 16,
     width: '80%',
-    maxHeight: '80%',
   },
   downIcon: {
     height: 25,
     width: 30
   },
+
 });
 
 export default SelectionComponent;

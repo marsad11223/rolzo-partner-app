@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
   Image,
   StyleSheet,
   useWindowDimensions,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { icons } from '../../assets/images';
@@ -14,9 +14,11 @@ import { Vehicles } from './Vehicles';
 import { Earnings } from './Earnings';
 import { Payouts } from './Payouts';
 import { Settings } from './Company';
+import { AuthContext } from '../../providers/AuthProvider';
+
 
 const AccountScreen = () => {
-
+  const { setLogoutModal } = useContext(AuthContext)
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
 
@@ -58,11 +60,12 @@ const AccountScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <Text style={styles.title}>Account</Text>
-      <TouchableOpacity >
-      <Image source={icons.logoutIcon} style={styles.logoutIcon} />
-    </TouchableOpacity>
-    </View>
+        <Text style={styles.title}>Account</Text>
+
+        <TouchableOpacity onPress={() => setLogoutModal(true)} >
+          <Image source={icons.logoutIcon} style={styles.logoutIcon} />
+        </TouchableOpacity>
+      </View>
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
@@ -72,6 +75,7 @@ const AccountScreen = () => {
         overScrollMode={'auto'}
       />
     </View>
+
   );
 };
 
@@ -89,13 +93,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 10,
-    
+
   },
   logoutIcon: {
     width: 34,
     height: 34,
-    paddingHorizontal:10,
-    marginRight:10
+    paddingHorizontal: 10,
+    marginRight: 10
   },
 });
 

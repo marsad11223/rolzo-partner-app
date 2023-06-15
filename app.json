@@ -15,7 +15,7 @@
       ]
     ],
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/rolzo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
