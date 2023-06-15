@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, StyleSheet, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TextInput, TouchableOpacity,ScrollView } from 'react-native';
 import { getExampleNumber } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/examples.mobile.json';
 import * as ImagePicker from 'expo-image-picker';
@@ -14,7 +14,8 @@ import { icons } from '../../../assets/images';
 import { Input } from '../../Login';
 import { getData } from '../../../utils/storage';
 import { fileToBase64, showToast } from '../../../utils/helper';
-import { ScrollView } from 'react-native-gesture-handler';
+
+
 
 const AddChaufferDetails = () => {
 

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
+  Image,
   StyleSheet,
   useWindowDimensions,
+  TouchableOpacity
 } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-
+import { icons } from '../../assets/images';
 import { Chauffer } from './Chauffeurs';
 import { Vehicles } from './Vehicles';
 import { Earnings } from './Earnings';
@@ -55,8 +57,12 @@ const AccountScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
       <Text style={styles.title}>Account</Text>
-
+      <TouchableOpacity >
+      <Image source={icons.logoutIcon} style={styles.logoutIcon} />
+    </TouchableOpacity>
+    </View>
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
@@ -77,6 +83,19 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 34,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    
+  },
+  logoutIcon: {
+    width: 34,
+    height: 34,
+    paddingHorizontal:10,
+    marginRight:10
   },
 });
 

@@ -10,7 +10,9 @@ const AppModal = ({ visible, onClose, children, title }) => {
         <View style={styles.contentContainer}>
           <View style={styles.header}>
             <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+            <View style={styles.closeButtonBox}>
               <Image style={styles.close} source={icons.close} ></Image>
+              </View>
             </TouchableOpacity>
             <Text style={styles.headerTitle}>
               {title}
@@ -59,11 +61,19 @@ const styles = StyleSheet.create({
   },
   closeButton:{
     marginLeft: 20,
+    color:"#0c0c0c",
   },
   close:{
-    height: 14,
-    width: 15,
-  }
+    height: 20,
+    width: 20,
+    opacity: 0.5
+  },
+  closeButtonBox: {
+    padding: 5,
+    borderRadius: 8,
+    backgroundColor: 'white',
+
+  },
 });
 
 export default AppModal;

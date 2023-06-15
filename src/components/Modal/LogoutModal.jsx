@@ -3,7 +3,7 @@ import Button from "../Button";
 import { Text,View,StyleSheet,Colors } from "react-native";
 import AppPopup from "./AppPopup";
 import App from "../../../App";
-const LogoutModal =(logout={}) =>{
+
     return(
 
 <AppPopup visible={App} onClose={() => { setLogoutModal(false) }}>
@@ -27,7 +27,7 @@ const LogoutModal =(logout={}) =>{
         </View>
       </AppPopup>
     );
-    }
+   
 const styles = StyleSheet.create({
     container: {
       flex: 1,
