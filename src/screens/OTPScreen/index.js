@@ -1,5 +1,5 @@
 import { Formik } from 'formik';
-import React, { useState } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import OTPTextView from 'react-native-otp-textinput';
@@ -7,10 +7,23 @@ import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { Colors } from '../../theme/variables';
 import { AuthContext } from '../../providers/AuthProvider';
 import { AvenirNextLTProRegular } from '../../utils/fonts';
+import { set } from 'firebase/database';
 
 const OTPScreen = ({ route, navigation }) => {
   const { phone, sid } = route.params;
   const [currentSid, setCurrentSid] = useState(sid);
+  const [otp, setOTP] = useState('');
+  const { login } = useContext(AuthContext);
+  useEffect(()=>{
+    if(otp.length===4){
+      
+      console.log("otp entered",otp);
+      handleSubmit();
+    }
+  },[otp])
+  const handleSubmit = () => {
+    login(phone, currentSid, otp);
+  };
 
   return (
     <AuthContext.Consumer>
@@ -34,16 +47,18 @@ const OTPScreen = ({ route, navigation }) => {
                 }}
               >
                 {({ handleChange, handleBlur, handleSubmit, values }) => (
-                  <View>
+                  <View >
                     <OTPTextView
-                      handleTextChange={handleChange('code')}
+                      handleTextChange={(val)=> {
+                        handleChange('code')(val)
+                        setOTP(val)
+                      }}
                       containerStyle={styles.input}
                       textInputStyle={styles.inputField}
                       inputCount={4}
                       keyboardType="numeric"
                       values={values}
                       tintColor={Colors.primary}
-                      //AutoFocus
                       autoFocus={true}
                     />
                     <TouchableOpacity
