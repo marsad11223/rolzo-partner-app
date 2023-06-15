@@ -142,7 +142,7 @@ const EditVehicleDetails = ({ route: { params } }) => {
       );
       setLoading(false);
       if (response?.data?.meta?.success) {
-        showToast('Car Deleted');
+        showToast('Car deleted');
         navigation.goBack();
       } else {
         showToast(response?.data?.meta?.message);

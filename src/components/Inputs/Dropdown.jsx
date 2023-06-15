@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Modal, Text, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { AvenirNextLTProRegular } from '../../utils/fonts';
+import Modal from 'react-native-modal';
 import { icons } from '../../assets/images';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const SelectionComponent = ({ options, selectedValue, onValueChange, style = {} }) => {
+const SelectionComponent = ({ options, selectedValue, onValueChange,placeholder, style = {} }) => {
   const [visible, setVisible] = useState(false);
 
   const handleValueChange = (value) => {
@@ -22,15 +23,17 @@ const SelectionComponent = ({ options, selectedValue, onValueChange, style = {} 
         onPress={() => setVisible(true)}
       >
         <Text style={selectedValue ? styles.selectedValue : styles.placeholder}>
-          {selectedValue ? selectedValue : 'Select'}
+          {selectedValue ? selectedValue : placeholder}
         </Text>
         <Image resizeMode='contain' style={styles.downIcon} source={icons.downIcon}></Image>
       </TouchableOpacity>
 
       <Modal
-        visible={visible}
-        transparent={true}
-        animationType="fade"
+         isVisible={visible}
+         onBackdropPress={() => setVisible(true)}
+         animationIn="fadeIn"
+         animationOut="fadeOut"
+         backdropOpacity={0.5}
       >
         <View style={styles.modalContainer}>
           <View style={styles.contentContainer}>
@@ -61,8 +64,6 @@ const SelectionComponent = ({ options, selectedValue, onValueChange, style = {} 
             ))}
           </View>
         </View>
-
-        
       </Modal>
     </View>
   );
