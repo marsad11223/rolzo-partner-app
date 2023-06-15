@@ -65,9 +65,7 @@ export default function App() {
         </AuthProvider>
        
       </SafeAreaView>
-      <AuthContext.Provider>
-        <LogoutModal></LogoutModal>
-      </AuthContext.Provider>
+     
     </NavigationContainer>
   );
 }

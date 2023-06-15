@@ -21,11 +21,12 @@ import {
   ConfirmSelectionScreen
 }
   from '../screens';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+  import { Colors } from '../theme/variables';
 import LogoutModal from '../components/Modal/LogoutModal';
 
 const Tab = createBottomTabNavigator();
 const Main = createStackNavigator();
+
 
 const Tabs = () => {
  
@@ -33,8 +34,7 @@ const Tabs = () => {
     
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        activeTintColor: 'black',
-        inactiveTintColor: '#8b959e',
+       
         tabBarIcon: ({ focused, color, size }) => {
           let IconName;
 
@@ -58,15 +58,15 @@ const Tabs = () => {
         },
         headerShown: false,
         tabBarStyle: { paddingBottom: 10, height: 60 },
+        tabBarActiveTintColor: 'black',
+        inactiveTintColor: '#8b959e',
       })}
      
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Bookings" component={BookingScreen} />
       <Tab.Screen name="Accounts" component={AccountScreen} />
-      <Tab.Screen name="Logout"   component={LogoutModal}
-        
-      />
+     
     </Tab.Navigator>
     
     
