@@ -43,11 +43,7 @@ const styles = StyleSheet.create({
   modalContent: {
     flex: 1,
   },
-  close: {
-    height: 12,
-    width: 12
-  },
-  header: {
+    header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomColor: 'rgba(139,149,158,.2)',
@@ -58,7 +54,15 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     color: '#0c0c0c',
-    fontWeight: 500
+    fontWeight: 500,
+    marginRight: 30,
+  },
+  closeButton:{
+    marginLeft: 20,
+  },
+  close:{
+    height: 14,
+    width: 15,
   }
 });
 
