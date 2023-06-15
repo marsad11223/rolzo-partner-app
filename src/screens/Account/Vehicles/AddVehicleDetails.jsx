@@ -68,7 +68,7 @@ const AddVehicleDetails = () => {
       const response = await axios.get(`https://staging.rolzo.com/api/api/v1/global-fleet/partnerBrands/${id}/model/${token}?page=1&limit=30&filter[name,like]=`);
 
       const uniqueModels = new Set();
-      response.data?.data?.forEach(item => {
+      response.data?.data?.forEach((item) => {
         uniqueModels.add(JSON.stringify(item));
       });
 
@@ -76,14 +76,13 @@ const AddVehicleDetails = () => {
         const model = JSON.parse(item);
         return {
           value: model.id,
-          label: model.name
+          label: model.name,
         }
       }));
 
       setModelLoading(false);
     } catch (error) {
       setModelLoading(false);
-      console.log(error);
     }
   }
 
@@ -105,7 +104,6 @@ const AddVehicleDetails = () => {
       const token = await getData('authToken');
       setLoading(true);
       const response = await axios.post(`https://staging.rolzo.com/api/api/v1/external/car/${token}`, data);
-      console.log(response, 'response');
       setLoading(false);
       if (response?.data?.meta?.success) {
         showToast('Car Added')
@@ -164,7 +162,9 @@ const AddVehicleDetails = () => {
                         onValueChange={handleChange('model')}
                         placeholder={'Select...'}
                         style={styles.dropDown}
+
                       />
+
                       <Text style={styles.error}>{touched.model && errors.model ? errors.model : ''}</Text>
                     </View>
                   </AppLoading>

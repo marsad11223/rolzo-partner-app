@@ -89,10 +89,10 @@ const HomeScreen = () => {
             transactions={
               service === 0
                 ? [
-                  { title: `Transfer(${userData?.transferBookingsCounter})`, amount: userData?.transferEarnings },
-                  { title: `By the hour(${userData?.hourlyBookingsCounter})`, amount: userData?.hourlyEarnings },
+                  { title: `Transfer(${userData?.transferBookingsCounter ?? '--'})`, amount: userData?.transferEarnings },
+                  { title: `By the hour(${userData?.hourlyBookingsCounter ?? '--'})`, amount: userData?.hourlyEarnings },
                 ]
-                : [{ title: `Car rental(${userData?.carRentalBookingsCounter})`, amount: userData?.carRentalEarnings }]
+                : [{ title: `Car rental(${userData?.carRentalBookingsCounter ?? '--'})`, amount: userData?.carRentalEarnings }]
             }
           />
           <Card

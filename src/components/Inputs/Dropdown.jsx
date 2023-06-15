@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import { icons } from '../../assets/images';
 
 
-const SelectionComponent = ({ options, selectedValue, onValueChange, placeholder, style = {} }) => {
+const SelectionComponent = ({ options = [], selectedValue, onValueChange, placeholder, style = {} }) => {
   const [visible, setVisible] = useState(false);
 
   const handleValueChange = (value) => {
@@ -14,6 +14,16 @@ const SelectionComponent = ({ options, selectedValue, onValueChange, placeholder
     }
     setVisible(false);
   };
+
+  const getLabel = () => {
+    let label = '';
+    options.forEach(option => {
+      if (option?.value === selectedValue) {
+        label = option.label
+      }
+    })
+    return label
+  }
   return (
     <View style={[styles.border, style]}>
 
@@ -22,11 +32,10 @@ const SelectionComponent = ({ options, selectedValue, onValueChange, placeholder
         onPress={() => setVisible(true)}
       >
         <Text style={selectedValue ? styles.selectedValue : styles.placeholder}>
-          {selectedValue ? selectedValue : placeholder}
+          {selectedValue ? getLabel() : placeholder}
         </Text>
         <Image resizeMode='contain' style={styles.downIcon} source={icons.downIcon}></Image>
       </TouchableOpacity>
-
       <Modal
         isVisible={visible}
         onBackdropPress={() => setVisible(false)}
