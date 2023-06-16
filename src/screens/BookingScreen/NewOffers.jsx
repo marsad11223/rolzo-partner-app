@@ -44,7 +44,6 @@ const NewOffers = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
   const getCars = async () => {
@@ -82,7 +81,6 @@ const NewOffers = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
   const getFilteredData = async (search) => {

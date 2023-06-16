@@ -8,7 +8,6 @@ const Auth = {
       const response = await axios.post(
         `${BASE_URL}/external/sms-verification/${phone}`
       );
-      console.log('requestOTP', response.data);
       return response.data;
     } catch (error) {
       console.log(error);

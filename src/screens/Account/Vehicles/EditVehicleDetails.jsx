@@ -64,7 +64,6 @@ const EditVehicleDetails = ({ route: { params } }) => {
       setCarLoading(false);
     } catch (error) {
       setCarLoading(false);
-      console.log(error);
     }
   }
 

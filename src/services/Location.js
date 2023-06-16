@@ -22,7 +22,6 @@ const Location = {
       // console.log("response", response)
       return response.data;
     } catch (error) {
-      console.log('we have saveCurrentLocation error', error);
       alert(error);
     }
   },

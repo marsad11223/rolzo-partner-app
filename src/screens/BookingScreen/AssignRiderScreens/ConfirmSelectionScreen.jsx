@@ -36,7 +36,6 @@ const ConfirmSelectionScreen = ({ route }) => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 

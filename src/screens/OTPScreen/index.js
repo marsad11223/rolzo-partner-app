@@ -1,5 +1,5 @@
 import { Formik } from 'formik';
-import React, { useState,useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import OTPTextView from 'react-native-otp-textinput';
@@ -14,13 +14,11 @@ const OTPScreen = ({ route, navigation }) => {
   const [currentSid, setCurrentSid] = useState(sid);
   const [otp, setOTP] = useState('');
   const { login } = useContext(AuthContext);
-  useEffect(()=>{
-    if(otp.length===4){
-      
-      console.log("otp entered",otp);
+  useEffect(() => {
+    if (otp.length === 4) {
       handleSubmit();
     }
-  },[otp])
+  }, [otp])
   const handleSubmit = () => {
     login(phone, currentSid, otp);
   };
@@ -49,7 +47,7 @@ const OTPScreen = ({ route, navigation }) => {
                 {({ handleChange, handleBlur, handleSubmit, values }) => (
                   <View >
                     <OTPTextView
-                      handleTextChange={(val)=> {
+                      handleTextChange={(val) => {
                         handleChange('code')(val)
                         setOTP(val)
                       }}
@@ -86,7 +84,6 @@ const OTPScreen = ({ route, navigation }) => {
                         } else throw Error('Unable to send OTP. Try again.');
                       })
                       .catch((error) => {
-                        console.log(error.message);
                         alert(error.message);
                       });
                   }}

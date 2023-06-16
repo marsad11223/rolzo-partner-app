@@ -44,7 +44,6 @@ const Completed = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 
@@ -84,7 +83,6 @@ const Completed = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 

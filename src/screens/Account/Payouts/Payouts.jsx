@@ -34,7 +34,6 @@ const Payouts = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 

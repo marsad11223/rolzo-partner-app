@@ -12,12 +12,9 @@ import { icons } from '../../../assets/images';
 import { AddComponent, EditComponent } from '../Components';
 import { getData } from '../../../utils/storage';
 import AppLoading from '../../../components/Loading/AppLoading';
-
 const Chauffer = () => {
-
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [chauffeurs, setChauffeurs] = useState([]);
@@ -37,7 +34,6 @@ const Chauffer = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 
@@ -50,7 +46,6 @@ const Chauffer = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 
@@ -82,7 +77,6 @@ const Chauffer = () => {
       />
     )
   }
-
   return (
     <View style={styles.container}>
       <View style={{
@@ -97,7 +91,6 @@ const Chauffer = () => {
           }}
         />
       </View>
-
       <AppLoading loading={loading}>
         <FlatList
           data={chauffeurs ? [{ _id: '1' }, ...chauffeurs] : [{ _id: '1' }]}
@@ -109,11 +102,9 @@ const Chauffer = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
-
 export default Chauffer;

@@ -49,7 +49,6 @@ const Vehicles = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 

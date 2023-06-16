@@ -78,7 +78,6 @@ export function AuthProvider(props) {
         throw new Error('Session expired');
       }
     } catch (error) {
-      console.log(error.message);
       setToken(null);
       setIsSessionValid(false);
       if (SplashScreen && SplashScreen.hide) {

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, StyleSheet, Text, Image, TextInput, TouchableOpacity,ScrollView } from 'react-native';
+import { View, StyleSheet, Text, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { getExampleNumber } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/examples.mobile.json';
 import * as ImagePicker from 'expo-image-picker';
@@ -73,96 +73,92 @@ const AddChaufferDetails = () => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error, 'error');
-      showToast(error?.message)
+      showToast(error?.message);
     }
   }
 
   return (
     <View style={styles.container}>
       <Header title={'Add a chauffeur'} />
-      
+
       <AppLoading loading={loading}>
-      <ScrollView>
-        <View style={{
-          padding: 20,
-        }}>
-          <View style={styles.profileContainer}>
-            {!image ? <View style={{
-              width: 125,
-              height: 130,
-              borderRadius: 100,
-              borderColor: '#8b959e',
-              borderWidth: 1,
-              padding: 20,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Image source={icons.chauffeurGrey} style={styles.profilePhoto} />
+        <ScrollView>
+          <View style={styles.scrollviewContainer}>
+            <View style={styles.profileContainer}>
+              {!image ? <View style={{
+                width: 125,
+                height: 130,
+                borderRadius: 100,
+                borderColor: '#8b959e',
+                borderWidth: 1,
+                padding: 20,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Image source={icons.chauffeurGrey} style={styles.profilePhoto} />
+              </View>
+                :
+                <Image source={{ uri: image }} style={styles.selectedImage} />
+              }
+              <TouchableOpacity onPress={pickImage}>
+                <Text style={styles.changePhotoText}>Upload photo</Text>
+              </TouchableOpacity>
             </View>
-              :
-              <Image source={{ uri: image }} style={styles.selectedImage} />
-            }
-            <TouchableOpacity onPress={pickImage}>
-              <Text style={styles.changePhotoText}>Upload photo</Text>
-            </TouchableOpacity>
-          </View>
 
-          <View style={styles.fieldContainer}>
-            <Text style={styles.label}>FIRST NAME*</Text>
-            <TextInput
-              style={styles.input}
-              value={firstName}
-              onChangeText={setFirstName}
-            />
-          </View>
-          <View style={styles.fieldContainer}>
-            <Text style={styles.label}>LAST NAME*</Text>
-            <TextInput
-              style={styles.input}
-              value={lastName}
-              onChangeText={setLastName}
-            />
-          </View>
-          <View style={styles.fieldContainer}>
-            <Text style={styles.label}>MOBILE NUMBER*</Text>
-            <Input
-              initialValue={''}
-              ref={phone}
-              initialCountry="gb"
-              onChangePhoneNumber={(number) => {
-                setPhoneNumber(number);
-                setIsValid(phone.current.isValidNumber());
-                setMaxLength(
-                  phone.current.getISOCode().toUpperCase() === 'AT'
-                    ? 13
-                    : phone.current.getISOCode().toUpperCase() ===
-                      'BG'
+            <View style={styles.fieldContainer}>
+              <Text style={styles.label}>FIRST NAME*</Text>
+              <TextInput
+                style={styles.input}
+                value={firstName}
+                onChangeText={setFirstName}
+              />
+            </View>
+            <View style={styles.fieldContainer}>
+              <Text style={styles.label}>LAST NAME*</Text>
+              <TextInput
+                style={styles.input}
+                value={lastName}
+                onChangeText={setLastName}
+              />
+            </View>
+            <View style={styles.fieldContainer}>
+              <Text style={styles.label}>MOBILE NUMBER*</Text>
+              <Input
+                initialValue={''}
+                ref={phone}
+                initialCountry="gb"
+                onChangePhoneNumber={(number) => {
+                  setPhoneNumber(number);
+                  setIsValid(phone.current.isValidNumber());
+                  setMaxLength(
+                    phone.current.getISOCode().toUpperCase() === 'AT'
                       ? 13
-                      : getExampleNumber(
-                        phone.current.getISOCode().toUpperCase(),
-                        examples
-                      )?.number.length
-                );
-              }}
-              textProps={{
-                maxLength: maxLength,
-              }}
-              textStyle={{
-                color: 'black',
-              }}
-            />
-          </View>
+                      : phone.current.getISOCode().toUpperCase() ===
+                        'BG'
+                        ? 13
+                        : getExampleNumber(
+                          phone.current.getISOCode().toUpperCase(),
+                          examples
+                        )?.number.length
+                  );
+                }}
+                textProps={{
+                  maxLength: maxLength,
+                }}
+                textStyle={{
+                  color: 'black',
+                }}
+              />
+            </View>
 
-        </View>
-        <View style={styles.bottomContainer}>
-          <View style={{ width: '90%' }}>
-            <Button label={'Save'} onPress={handleSubmit} />
           </View>
-        </View>
+          <View style={styles.bottomContainer}>
+            <View style={styles.submitButton}>
+              <Button label={'Save'} onPress={handleSubmit} />
+            </View>
+          </View>
         </ScrollView>
       </AppLoading>
-     
     </View>
   );
 };
@@ -244,6 +240,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     resizeMode: 'contain'
+  },
+  scrollviewContainer: {
+    padding: 20,
+  },
+  submitButton: {
+    width: '90%',
   }
 });
 

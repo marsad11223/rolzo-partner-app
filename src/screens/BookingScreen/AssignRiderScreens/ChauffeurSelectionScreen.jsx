@@ -38,7 +38,6 @@ const ChauffeurSelectionScreen = ({ route }) => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 
@@ -109,7 +108,6 @@ const ChauffeurSelectionScreen = ({ route }) => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 

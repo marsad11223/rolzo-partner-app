@@ -39,7 +39,6 @@ const VehicleSelectionScreen = ({ route }) => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   }
 
@@ -97,7 +96,6 @@ const VehicleSelectionScreen = ({ route }) => {
       }
       setLoading(true);
       const response = await axios.patch(`https://staging.rolzo.com/api/api/v1/external/car/assign/${booking._id}`, data);
-      console.log(response?.data?.meta?.success, 'response');
       if (response?.data?.meta?.success) {
         setLoading(false);
         navigation.navigate('ConfirmSelectionScreen', booking)
